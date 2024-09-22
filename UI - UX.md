@@ -15,4 +15,4 @@ Cebu Institute of Technology University
 
 ---
 
-## Link (https://www.figma.com/design/gxBhi9VFMimdgLTfQVOBoU/Sari-sari-store-daw-para-sa-PC-parts?node-id=0-1&node-type=canvas&t=pQDeRewJAYXamz2r-0)
+## LINK(https://www.figma.com/design/gxBhi9VFMimdgLTfQVOBoU/Sari-sari-store-daw-para-sa-PC-parts?node-id=0-1&node-type=canvas&t=pQDeRewJAYXamz2r-0)
