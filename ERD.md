@@ -1,7 +1,7 @@
 ![CIT LOGO](https://cit.edu/wp-content/uploads/2023/07/cit-logo.png)
 
 
-# Functional ERD for PC Parts & Custom Builds System (S.Y. 2024 - 2025)
+# ERD for PC Parts & Custom Builds System (S.Y. 2024 - 2025)
 
 ## Prepared for 
 **Amparo, Joemari**
