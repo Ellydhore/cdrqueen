@@ -1,10 +1,12 @@
-# Online-PC-Parts-Shop
+# Online PC Parts Shop (CD-R Queen)
 This is a group project for CS327 (2024-2025) focused on developing an online shop dedicated to PC parts and custom builds.
 
-## Developers 
-**Belleza, Ellydhore Gabrylle**  
-**Escosia, Raphael Jay**  
-**Kisteria, Alessandra Beatriz**
+
+| **Developers**                    | **Apps Maintained**                  |
+| --------------------------------- | ------------------------------------ |
+| Belleza, Ellydhore Gabrylle       | Order History, Check Out Process     |
+| Escosia, Raphael Jay              | Product Details, Shopping Cart       |
+| Kisteria, Alessandra Beatriz      | User Authentication, Product Catalog |
 
 # Quick Links
 
@@ -17,6 +19,6 @@ This is a group project for CS327 (2024-2025) focused on developing an online sh
 ### UI/UX Design
   (https://www.figma.com/design/gxBhi9VFMimdgLTfQVOBoU/Sari-sari-store-daw-para-sa-PC-parts?node-id=0-1&node-type=canvas&t=pQDeRewJAYXamz2r-0)
 
-# WE LOVE DJANGO
+## "Shiminet like my Django, shiminet like how I Django, shiminet like the content of my Django, but I am Djangoing"
 
 ![Some GIF](https://i.pinimg.com/originals/6a/cd/07/6acd0780a4c693b2cf8da52b5c44b18e.gif)
