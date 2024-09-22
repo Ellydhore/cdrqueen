@@ -1,13 +1,12 @@
 ![CIT LOGO](https://cit.edu/wp-content/uploads/2023/07/cit-logo.png)
 
 
-# Functional Requirements for PC Parts & Custom Builds System
+# Functional Requirements for PC Parts & Custom Builds System (S.Y. 2024 - 2025)
 
 ## Prepared for 
 **Amparo, Joemari**
 
-Cebu Institute of Technology University  
-August 29, 2024  
+Cebu Institute of Technology University
 
 ## Prepared by 
 **Belleza, Ellydhore Gabrylle**  
