@@ -2,11 +2,11 @@
 This is a group project for CS327 (2024-2025) focused on developing an online shop dedicated to PC parts and custom builds.
 
 
-| **Developers**                    | **Apps Maintained**                  |
-| --------------------------------- | ------------------------------------ |
-| Belleza, Ellydhore Gabrylle       | Order History, Check Out Process     |
-| Escosia, Raphael Jay              | Product Details, Shopping Cart       |
-| Kisteria, Alessandra Beatriz      | User Authentication, Product Catalog |
+| **Developers**                    | **Apps Maintained**                    |
+| --------------------------------- | -------------------------------------- |
+| Belleza, Ellydhore Gabrylle       | Home, Order History, Check Out Process |
+| Escosia, Raphael Jay              | Product Details, Shopping Cart         |
+| Kisteria, Alessandra Beatriz      | User Authentication, Product Catalog   |
 
 # Quick Links
 
