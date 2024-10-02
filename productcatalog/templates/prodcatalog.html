@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section class="product-grid" id="product-grid">
+        {% for product in products %}
+        <div class="product-item" data-name="{{ product.name }}">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            <h2>{{ product.name }}</h2>
+            <p>${{ product.price }}</p>
+            <button onclick="viewDetails('{{ product.name }}', '{{ product.price }}', '{{ product.description }}')">View Details</button>
+        </div>
+        {% empty %}
+        <p>No products found.</p>
+        {% endfor %}
+    </section>
+</div>
+
+<!-- Product Detail Modal -->
+<div id="product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modal-product-name"></h2>
+        <p><strong>Price:</strong> $<span id="modal-product-price"></span></p>
+        <p id="modal-product-description"></p>
+    </div>
+</body>
+</html>
