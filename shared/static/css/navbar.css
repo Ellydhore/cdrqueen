@@ -1,0 +1,95 @@
+.navbar-bg {
+    background: linear-gradient(to bottom, #FFF500, #FFD700);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-navbar-links {
+    font-family: 'Roboto Flex', sans-serif;
+    color: #240E7A;
+    font-size: 1rem;
+}
+
+/* Hover effect */
+.header-navbar-links:hover {
+    text-decoration: underline;
+}
+
+.footer-list {
+    margin-top: 0; 
+    flex-direction: column;
+}
+
+.footer-navbar-links {
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 0.5rem;
+    color: #240E7A;
+}
+
+.footer-navbar-title {
+    font-family: 'Inter', sans-serif;
+    margin-top: 0.5rem;
+    color: #240E7A;
+    font-weight: 800;
+    text-decoration: underline;
+    font-size: 1.5rem;
+}
+
+.footer-navbar-links:hover {
+    text-decoration: underline;
+}
+
+.powered-by {
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 3rem;
+    color: #240E7A;
+    font-weight: 800;
+}
+
+.icon-links {
+    color: #240E7A;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-links {
+    display: inline-flex; /* This allows the icon and text to be in the same row */
+    align-items: center; /* Vertically aligns the icon with the text */
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    color: #240E7A;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(243, 243, 243, 0.9);
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.dropdown-content a {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f3f3f3;
+    color: #240E7A;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
