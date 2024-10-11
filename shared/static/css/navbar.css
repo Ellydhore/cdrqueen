@@ -1,4 +1,7 @@
 .navbar-bg {
+    position: sticky;
+    top: 0;
+    transition: top 0.3s ease;
     background: linear-gradient(to bottom, #FFF500, #FFD700);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     z-index: 10;

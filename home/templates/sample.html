@@ -1,0 +1,26 @@
+<!-- Make sure the reference of the base_nav.html is correct -->
+{% extends 'home/base_nav.html' %}
+{% load static %}
+
+<!-- GO TO settings.py THEN ADD YOUR APP TO THE STATICFILES_DIRS -->
+<!-- Replace home.css -->
+{% block css_block%}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+<!-- Change 'Sample Page' to the name of your page -->
+{% block title%}Sample Page{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<main>
+
+    <!-- PUT YOUR CODE HERE -->
+
+</main>
+<!-- End Main -->   
+{% endblock %}
+
+<!-- This is where you put your app's script -->
+{% block js_block%}
+{% endblock %}

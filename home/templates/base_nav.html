@@ -109,6 +109,26 @@
 <!-- End Footer -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+<script>
+    // Select the navbar element
+    const navbar = document.querySelector('.navbar-bg');
+    let lastScrollPosition = 0;
+    
+    window.addEventListener('scroll', function() {
+        // Get current scroll position
+        let currentScrollPosition = window.pageYOffset;
+
+        // If the user scrolls down and the scroll position is greater than 100px, hide the navbar
+        if (currentScrollPosition > 100 && currentScrollPosition > lastScrollPosition) {
+            navbar.style.top = '-100px';  // Adjust based on navbar height
+        } else {
+            navbar.style.top = '0';
+        }
+
+        // Update the last scroll position
+        lastScrollPosition = currentScrollPosition;
+    });
+</script>
 
 <!-- Unique java script for each apps goes here -->
 {% block js_block %}
