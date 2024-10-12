@@ -5,6 +5,7 @@
 .our-fav {
     color: white;
     font-size: 2.5rem;
+    text-shadow: 4px 15px rgba(0, 0, 0, 0.2);
     font-family: 'Russo One', sans-serif;
     margin-bottom: 0.5rem;
     text-align: left;
@@ -13,6 +14,7 @@
 .best-sellers {
     color: white;
     font-size: 6rem;
+    text-shadow: 4px 15px rgba(0, 0, 0, 0.2);
     font-family: 'Russo One', sans-serif;
     margin-bottom: 0.5rem;
 }
@@ -40,6 +42,7 @@
 .faded-bg-container {
     background-color: rgba(255, 255, 255, 0.1);
     padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 .best-sellers-container h2 {
