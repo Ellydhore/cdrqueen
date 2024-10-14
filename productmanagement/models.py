@@ -41,6 +41,9 @@ class Product(models.Model):
     height = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     weight = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
+    num_of_ratings = models.PositiveIntegerField(default=0)
+    ave_ratings = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='products')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='products')
