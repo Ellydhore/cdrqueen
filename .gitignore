@@ -1,0 +1,8 @@
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ignore other common files (optional)
+.env
+*.log
+*.sqlite3
