@@ -118,14 +118,12 @@
         // Get current scroll position
         let currentScrollPosition = window.pageYOffset;
 
-        // If the user scrolls down and the scroll position is greater than 100px, hide the navbar
         if (currentScrollPosition > 100 && currentScrollPosition > lastScrollPosition) {
-            navbar.style.top = '-100px';  // Adjust based on navbar height
+            navbar.style.top = '-100px';
         } else {
             navbar.style.top = '0';
         }
 
-        // Update the last scroll position
         lastScrollPosition = currentScrollPosition;
     });
 </script>

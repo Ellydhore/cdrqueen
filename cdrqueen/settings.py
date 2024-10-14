@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'admindashboard',
     'checkout',
     'helpandsupport',
     'home',
@@ -130,8 +131,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "shared/static",
+    BASE_DIR / "admindashboard/static",
     BASE_DIR / "home/static",
+    BASE_DIR / "shared/static",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
