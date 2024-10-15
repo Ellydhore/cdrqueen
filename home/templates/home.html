@@ -65,20 +65,37 @@
 <!-- End Carousel -->
 
 <!-- Favorites -->
+{% load humanize %}
 <div class="mx-6 grid grid-cols-2 md:grid-cols-4 gap-4">
     <div>
         <h2 class="our-fav">Check Out <br> Our Favorites</h2>    
         <button class="custom-button">VIEW ALL</button>
     </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-    </div>
-    <div>
-        <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-    </div>
+    {% for product in top_rated_products %}
+        <div>
+            <!-- Get the first image for the product -->
+            <div class="fav_products_image">
+                {% if product.images.first %}
+                    <img class="rounded-lg" src="{{ product.images.first.image_url_1 }}">
+                {% endif %}
+            </div>
+            <div>
+                <h4 class="fav_product_name mx-3">
+                    {{ product.name }}
+                </h4>
+            </div>
+            <div>
+                {% if product.discount < product.price %}
+                    <h5 class="fav_product_price mx-3 mt-2">
+                        <span style="text-decoration: line-through;">₱{{ product.price|floatformat:2|intcomma }}</span>
+                        <span> ₱{{ product.discount|floatformat:2|intcomma }}</span>
+                    </h5>
+                {% else %}
+                    <h5 class="fav_product_price mx-3 mt-2">₱{{ product.price|floatformat:2|intcomma }}</h5>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 <!-- End Favorites -->
 
@@ -89,24 +106,31 @@
     <div class="faded-bg-container mb-12">
         <div class="mx-6">
             <div class="mx-auto grid grid-cols-3 md:grid-cols-3 gap-8">
-                <div>
-                    <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-                </div>
-                <div>
-                    <img class="h-auto max-w-full rounded-lg" src="https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=" alt="">
-                </div>
+                {% for product in most_purchases %}
+                    <div>
+                        <!-- Get the first image for the product -->
+                        <div class="best_sellers_image">
+                            {% if product.images.first %}
+                                <img class="rounded-lg overflow-hidden" src="{{ product.images.first.image_url_1 }}">
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h4 class="best_sellers_name mx-3">
+                                {{ product.name }}
+                            </h4>
+                        </div>
+                        <div>
+                            {% if product.discount < product.price %}
+                                <h5 class="fav_product_price mx-3 mt-2">
+                                    <span style="text-decoration: line-through;">₱{{ product.price|floatformat:2|intcomma }}</span>
+                                    <span> ₱{{ product.discount|floatformat:2|intcomma }}</span>
+                                </h5>
+                            {% else %}
+                                <h5 class="best_sellers_price mx-3 mt-2">₱{{ product.price|floatformat:2|intcomma }}</h5>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}   
             </div>
         </div>
     </div>

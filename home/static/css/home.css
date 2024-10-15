@@ -45,6 +45,76 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
+.fav_products_image {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+
+.fav_products_image img {
+    position: absolute; /* Absolute positioning inside the square */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    object-fit: cover; /* Ensures the image fits the square container while preserving aspect ratio */
+}
+
+.fav_products_image img:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+}
+
+.fav_product_name {
+    color: white; /* Set text color to white */
+    font-family: 'Ubuntu', sans-serif; /* Use Ubuntu font */
+    font-weight: bold;
+    overflow: hidden;
+    text-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 1px 1px 5px #000;
+}
+
+.fav_product_price {
+    color: white; /* Set text color to white */
+    font-family: 'Nunito Sans', sans-serif; /* Use Nunito Sans font */
+    overflow: hidden;
+    text-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 1px 1px 5px #000;
+}
+
 .best-sellers-container h2 {
     text-align: center;
+}
+
+.best_sellers_image {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+}
+
+.best_sellers_image  img {
+    position: absolute; /* Absolute positioning inside the square */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    object-fit: cover; /* Ensures the image fits the square container while preserving aspect ratio */
+}
+
+.best_sellers_image img:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+}
+
+.best_sellers_name {
+    color: white; /* Set text color to white */
+    font-family: 'Ubuntu', sans-serif; /* Use Ubuntu font */
+    font-weight: bold;
+    overflow: hidden;
+    text-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 1px 1px 5px #000;
+}
+
+.best_sellers_price {
+    color: white; /* Set text color to white */
+    font-family: 'Nunito Sans', sans-serif; /* Use Nunito Sans font */
+    overflow: hidden;
+    text-shadow: 0 0 0 #000, 0 0 0 #000, 0 0 0 #000, 1px 1px 5px #000;
 }
