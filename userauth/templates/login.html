@@ -12,19 +12,12 @@
 <main>
 
     <div class="login-container">
-        <h2>Login</h2>
-        <form action="/login" method="POST">
-            <label for="email"></label>
-            <input type="text" id="email" name="email" placeholder="Email Address" required>
-            
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            
-            <input type="submit" value="Login">
+        <h2>LOGIN</h2>
+        <form class="form-with-validation" action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button class="form-submit">Submit</button>
         </form>
-        <div class="message">
-            <p>Don't have an account? <a href="/signup">Sign up</a></p>
-        </div>
     </div>
 
 </main>
