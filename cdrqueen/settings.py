@@ -134,6 +134,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "admindashboard/static",
     BASE_DIR / "home/static",
+    BASE_DIR / "userauth/static",
+    BASE_DIR / "productdetail/static",
     BASE_DIR / "shared/static",
 ]
 # Default primary key field type

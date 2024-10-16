@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator, ValidationError
 
 # CATEGORY
 class Category(models.Model):
@@ -41,8 +41,15 @@ class Product(models.Model):
     height = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     weight = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
-    num_of_ratings = models.PositiveIntegerField(default=0)
-    ave_ratings = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
+    num_of_ratings = models.PositiveSmallIntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
+        help_text="Please provide a rating between 1 and 5."
+    ) 
+
+    ave_ratings = models.DecimalField(max_digits=3, decimal_places=2, 
+        default=0.00, validators=[MinValueValidator(1), 
+        MaxValueValidator(5)], 
+        help_text="Please provide a rating between 1 and 5.")
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='products')

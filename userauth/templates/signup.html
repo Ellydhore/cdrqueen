@@ -1,13 +1,16 @@
-<!DOCTYPE html>
+{% extends 'base_nav.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
-    <!-- <link rel="stylesheet" href="{% static 'css/signup_style.css'%}"> -->
-</head>
-<body>
+
+{% block css_block%}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+{% endblock %}
+
+{% block title%}Sign Up Page{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<main>
+
     <div class="signup-container">
         <h2>Create Account</h2>
         <form action="/signup" method="POST">
@@ -33,5 +36,10 @@
         </div>
     </div>
 
-</body>
-</html>
+</main>
+<!-- End Main -->   
+{% endblock %}
+
+<!-- This is where you put your app's script -->
+{% block js_block%}
+{% endblock %}

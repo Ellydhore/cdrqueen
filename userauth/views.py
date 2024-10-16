@@ -1,5 +1,7 @@
 from django.shortcuts import render, HttpResponse
 
-# Create your views here.
-def foo_user_auth(request):
-    return HttpResponse("Welcome to User Authentication!")
+def login_page(request):
+    return render(request, 'login.html')
+
+def signup_page(request):
+    return render(request, 'signup.html')
