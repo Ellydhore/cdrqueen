@@ -14,7 +14,7 @@
       <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <li>
           <div class="flex items-center">
-            <a href="#" class="mr-2 text-sm font-medium text-gray-900">PC</a>
+            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Components</a>
             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
               <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
             </svg>
@@ -22,15 +22,11 @@
         </li>
         <li>
           <div class="flex items-center">
-            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Desktop</a>
+            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Graphics Card</a>
             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
               <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
             </svg>
           </div>
-        </li>
-
-        <li class="text-sm">
-          <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">Samsung Monitor</a>
         </li>
       </ol>
     </nav>
@@ -39,25 +35,29 @@
 <div class="mx-auto mt-6 max-w-7xl sm:px-6 lg:px-8">
   <div class="grid grid-cols-5 gap-x-8">
     <!-- Left side: scrollable container with small images -->
+     <!--
     <div class="col-span-1 max-h-[300px] overflow-y-scroll scrollbar-thin">
       <div class="flex flex-col gap-y-4">
         <div class="overflow-hidden rounded-lg h-24 w-full">
-          <img src="https://m.media-amazon.com/images/I/81ku2KKG+JL._AC_SX466_.jpg" alt="Small Image 1" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
+          <img src="{{ product.images.first.image_url_1 }}" alt="Small Image 1" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
         </div>
         <div class="overflow-hidden rounded-lg h-24 w-full">
-          <img src="https://m.media-amazon.com/images/I/81HN5m6HR8L._AC_SX466_.jpg" alt="Small Image 2" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
+          <img src="{{ product.images.first.image_url_1 }}" alt="Small Image 2" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
         </div>
         <div class="overflow-hidden rounded-lg h-24 w-full">
-          <img src="https://m.media-amazon.com/images/I/81B1ksGcp-L._AC_SX466_.jpg" alt="Small Image 3" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
+          <img src="{{ product.images.first.image_url_1 }}" alt="Small Image 3" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
         </div>
       </div>
     </div>
+    -->
 
     <!-- Center: large main image -->
     <div class="col-span-4 flex justify-center items-center">
-      <div class="h-64 w-64 overflow-hidden rounded-lg">
-        <img id="main-image" src="https://m.media-amazon.com/images/I/81eYjpydptL._AC_SX466_.jpg" alt="Large Image" class="h-full w-full object-contain object-center">
-      </div>
+      <div class="fav_products_image">
+        {% if product.images.first %}
+            <img class="rounded-lg" src="{{ product.images.first.image_url_1 }}">
+        {% endif %}
+    </div>
     </div>
   </div>
 </div>
@@ -71,20 +71,16 @@
     mainImage.src = imageElement.src;
   }
 </script>
-
-
-
-
     <!-- Product info -->
     <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
       <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">SAMSUNG 27-Inch Odyssey G3 (G30D) Series FHD Gaming Monitor, 1ms, 180Hz, AMD FreeSync, Adjustable Stand, Black Equalizer, Virtual Aim Point, Eye Saver Mode, Flicker-Free, LS27DG302ENXZA, 2024</h1>
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ product.name }}</h1>
       </div>
 
       <!-- Options -->
       <div class="mt-4 lg:row-span-3 lg:mt-0">
         <h2 class="sr-only">Product information</h2>
-        <p class="text-3xl tracking-tight text-gray-900">$192</p>
+        <p class="text-3xl tracking-tight text-gray-900">${{ product.price }}</p>
 
         <!-- Reviews -->
         <div class="mt-6">
@@ -114,114 +110,6 @@
         </div>
 
         <form class="mt-10">
-          <!-- Monitor Refresh Rate -->
-<div>
-  <h3 class="text-sm font-medium text-gray-900">Refresh Rate (Hz)</h3>
-
-  <fieldset aria-label="Choose a refresh rate" class="mt-4">
-    <div class="flex items-center space-x-3">
-      <!-- Active and Checked: "ring ring-offset-1" -->
-      <label aria-label="60Hz" class="relative flex cursor-pointer items-center justify-center p-0.5 ring-gray-400 focus:outline-none">
-        <input type="radio" name="refresh-rate-choice" value="60Hz" class="sr-only">
-        <span aria-hidden="true" class="h-10 w-20 border border-black border-opacity-10 bg-gray-100 flex items-center justify-center">
-          <span class="text-sm font-medium text-gray-900">60Hz</span>
-        </span>
-      </label>
-      <!-- Active and Checked: "ring ring-offset-1" -->
-      <label aria-label="75Hz" class="relative flex cursor-pointer items-center justify-center p-0.5 ring-gray-400 focus:outline-none">
-        <input type="radio" name="refresh-rate-choice" value="75Hz" class="sr-only">
-        <span aria-hidden="true" class="h-10 w-20 border border-black border-opacity-10 bg-gray-100 flex items-center justify-center">
-          <span class="text-sm font-medium text-gray-900">75Hz</span>
-        </span>
-      </label>
-      <!-- Active and Checked: "ring ring-offset-1" -->
-      <label aria-label="120Hz" class="relative flex cursor-pointer items-center justify-center p-0.5 ring-gray-900 focus:outline-none">
-        <input type="radio" name="refresh-rate-choice" value="120Hz" class="sr-only">
-        <span aria-hidden="true" class="h-10 w-20 border border-black border-opacity-10 bg-gray-100 flex items-center justify-center">
-          <span class="text-sm font-medium text-gray-900">120Hz</span>
-        </span>
-      </label>
-      <!-- Active and Checked: "ring ring-offset-1" -->
-      <label aria-label="144Hz" class="relative flex cursor-pointer items-center justify-center p-0.5 ring-gray-900 focus:outline-none">
-        <input type="radio" name="refresh-rate-choice" value="144Hz" class="sr-only">
-        <span aria-hidden="true" class="h-10 w-20 border border-black border-opacity-10 bg-gray-100 flex items-center justify-center">
-          <span class="text-sm font-medium text-gray-900">144Hz</span>
-        </span>
-      </label>
-      <!-- Active and Checked: "ring ring-offset-1" -->
-      <label aria-label="240Hz" class="relative flex cursor-pointer items-center justify-center p-0.5 ring-gray-900 focus:outline-none">
-        <input type="radio" name="refresh-rate-choice" value="240Hz" class="sr-only">
-        <span aria-hidden="true" class="h-10 w-20 border border-black border-opacity-10 bg-gray-100 flex items-center justify-center">
-          <span class="text-sm font-medium text-gray-900">240Hz</span>
-        </span>
-      </label>
-    </div>
-  </fieldset>
-</div>
-
-
-          <!-- Monitor Sizes -->
-<div class="mt-10">
-  <div class="flex items-center justify-between">
-    <h3 class="text-sm font-medium text-gray-900">Monitor Size</h3>
-    <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size</a>
-  </div>
-
-  <fieldset aria-label="Choose a size" class="mt-4">
-    <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="19-inch" class="sr-only">
-        <span>19"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="21.5-inch" class="sr-only">
-        <span>21.5"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="24-inch" class="sr-only">
-        <span>24"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="27-inch" class="sr-only">
-        <span>27"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="32-inch" class="sr-only">
-        <span>32"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="34-inch" class="sr-only">
-        <span>34"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="38-inch" class="sr-only">
-        <span>38"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-      <!-- Active: "ring-2 ring-indigo-500" -->
-      <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
-        <input type="radio" name="size-choice" value="49-inch" class="sr-only">
-        <span>49"</span>
-        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-      </label>
-    </div>
-  </fieldset>
-</div>
-
-
           <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
         </form>
       </div>
@@ -232,13 +120,15 @@
           <h3 class="sr-only">Description</h3>
 
           <div class="space-y-6">
-            <p class="text-base text-gray-900">The Ultimate Monitor provides an immersive experience with crystal-clear display quality, high refresh rates, and vibrant color accuracy. Whether you're gaming, editing, or multitasking, this monitor is designed to meet all your professional and entertainment needs.</p>
+            <p class="text-base text-gray-900">{{ product.description }}</p>
           </div>
         </div>
-
+         <!-- 
         <div class="mt-10">
           <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
+          -->
 
+          <!-- 
           <div class="mt-4">
             <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
               <li class="text-gray-400"><span class="text-gray-600">High refresh rates up to 240Hz</span></li>
@@ -247,15 +137,16 @@
               <li class="text-gray-400"><span class="text-gray-600">Wide color gamut with HDR support</span></li>
             </ul>
           </div>
-        </div>
+        </div> -->
 
+        <!--
         <div class="mt-10">
           <h2 class="text-sm font-medium text-gray-900">Details</h2>
 
           <div class="mt-4 space-y-6">
             <p class="text-sm text-gray-600"> This monitor features a 32-inch display, offering both 144Hz and 240Hz options for fast-paced action, making it perfect for gamers and professionals alike. With HDMI, DisplayPort, and USB-C connectivity, it's ready for any device setup. Experience incredible color accuracy and reduced motion blur for all your multimedia tasks.</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
