@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'checkout',
     'helpandsupport',
     'home',
+    'info',
     'orderhistory',
     'ordermanagement',
     'paymentmanagement',
@@ -50,7 +51,9 @@ INSTALLED_APPS = [
     'productmanagement',
     'shippingmanagement',
     'shoppingcart',
+    'support',
     'userauth',
+    'usermanagement',
 ]
 
 MIDDLEWARE = [
