@@ -31,12 +31,12 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.2);
+    transition: background 2s ease, box-shadow 1s ease;
 }
 
 .custom-button:hover {
-    background: linear-gradient(to right, #DF0909 0%, #FFC900 36%, #FFD600 62%, #4F8CFF 100%);
+    box-shadow: 0 5px 35px 0px rgba(0, 0, 0, 0.9);
 }
 
 .faded-bg-container {

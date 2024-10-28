@@ -30,73 +30,9 @@
                 <a href="{% url 'home' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="{% static 'images/logo.png' %}" class="h-12" alt="cd-r queen logo" />
                 </a>
-            <ul class="flex space-x-6">
-                <li><a href="{% url 'home' %}" class="header-navbar-links">HOME</a></li>
-            <!-- COMPONENTS DROP DOWN -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-links">COMPONENTS 
-                        <i class="bx bx-chevron-down bx-sm icon-links"></i>
-                    </a>
-                    <ul class="dropdown-content">
-                        <a href="#">CPU</a>
-                        <a href="#">GRAPHICS CARD</a>
-                        <a href="#">MOTHERBOARD</a>
-                        <a href="#">RAM</a>
-                        <a href="#">STORAGE</a>
-                        <a href="#">POWER SUPPLY UNIT</a>
-                        <a href="#">CASE</a>
-                        <a href="#">COOLING SOLUTION</a>
-                        <a href="#">RGB LIGHTING</a>
-                    </ul>
-                </li>
-            <!-- GAMING GEAARS DROP DOWN --> 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-links">GAMING GEARS 
-                        <i class="bx bx-chevron-down bx-sm icon-links"></i>
-                    </a>
-                    <ul class="dropdown-content">
-                        <li><a href="#">MOUSE</a></li>
-                        <li><a href="#">KEYBOARD</a></li>
-                        <li><a href="#">CAMERA</a></li>
-                        <li><a href="#">HEADSET</a></li>
-                        <li><a href="#">EAR PHONES</a></li>
-                        <li><a href="#">MICROPHONE</a></li>
-                        <li><a href="#">CONTROLLER</a></li>
-                    </ul>
-                </li>
-
-                <li><a href="#" class="header-navbar-links">MONITORS</a></li>
-                <li><a href="#" class="header-navbar-links">PRE-BUILD GAMING PC</a></li>
-            </ul>
             <ul class="flex space-x-4 relative">
-                <li class="dropdown">
-                    <i class="bx bx-search-alt bx-tada-hover bx-sm icon-links"></i>
-                    <div class="search-dropdown">
-                        <form>
-                            <input type="text" class="search-input" placeholder="Search.." name="search">
-                            <button type="submit">Go</button>
-                        </form>
-                    </div>
-                </li>
-
-                <!-- Check if the user is logged in -->
-
-                {% if request.user.is_authenticated %}
-                    <li><i class="bx bx-user bx-tada-hover bx-sm icon-links"></i></li>
-                    <li><i class="bx bx-cart bx-tada-hover bx-sm icon-links"></i></li>
-                    <!-- Logout Form -->
-                    <li>
-                        <form method="post" action="{% url 'logout' %}">
-                            {% csrf_token %}
-                            <button type="submit" class="header-navbar-links">
-                                <i class="bx bx-exit bx-fade-right-hover bx-sm icon-links"></i>
-                            </button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li><a href="{% url 'signup' %}" class="header-navbar-auth">Sign Up</a></li>
-                    <li><a href="{% url 'login' %}" class="header-navbar-auth">Login</a></li>
-                {% endif %}
+                <li><a href="{% url 'signup' %}" class="header-navbar-auth">Sign Up</a></li>
+                <li><a href="{% url 'login' %}" class="header-navbar-auth">Login</a></li>
             </ul>
             </div>
         </nav>
