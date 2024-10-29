@@ -1,9 +1,7 @@
 # Ignore Python compiled files
 *.pyc
-__pycache__/
 
 # Ignore other common files (optional)
 .env
 .venv
 *.log
-*.sqlite3
