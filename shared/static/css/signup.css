@@ -1,73 +1,94 @@
-body {
-    background-color: #f7fafc; /* Light gray background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Full viewport height */
-    margin: 0; /* Remove default margin */
-    font-family: Arial, sans-serif; /* Use a default font */
-}
-
+/* Sign-up Container */
 .signup-container {
-    background-color: white; /* White background for the form */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    padding: 32px; /* Padding inside the container */
-    width: 100%; /* Full width */
-    max-width: 400px; /* Maximum width for the container */
+    background-color: #fff;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;  /* Align with your navbar font */
 }
 
-h2 {
-    font-size: 50px; /* Font size for the title */
-    font-weight: bold; /* Bold title */
-    color: #333; /* Dark gray color */
-    text-align: center; /* Center the title */
-    margin-bottom: 24px; /* Space below the title */
+.signup-container h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #240E7A;  /* Matching the color scheme of the navbar */
+    margin-bottom: 20px;
 }
 
-.input-field {
-    width: 100%; /* Full width for input fields */
-    padding: 12px; /* Padding inside input fields */
-    border: 1px solid #d1d5db; /* Light gray border */
-    border-radius: 8px; /* Rounded corners for input fields */
-    margin-bottom: 16px; /* Space below each input field */
-    font-size: 14px; /* Font size for input text */
-    color: #333; /* Dark gray color for input text */
-    transition: border-color 0.2s; /* Transition effect for border color */
+/* Form Styling */
+.form-with-validation {
+    display: flex;
+    flex-direction: column;
 }
 
-.input-field:focus {
-    outline: none; /* Remove default outline */
-    border-color: #3b82f6; /* Blue border color on focus */
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* Shadow effect on focus */
+.form-with-validation div {
+    margin-bottom: 15px;
 }
 
+.form-with-validation input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: 'Roboto', sans-serif;  /* Font family aligned with navbar */
+}
+
+.form-with-validation input:focus {
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.3);
+    outline: none;
+}
+
+/* Submit Button */
 .form-submit {
-    width: 100%; /* Full width for the submit button */
-    padding: 12px; /* Padding inside the button */
-    background-color: #3b82f6; /* Blue background */
-    color: white; /* White text */
-    border: none; /* No border */
-    border-radius: 8px; /* Rounded corners for the button */
-    font-size: 16px; /* Font size for the button text */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.2s; /* Transition effect for background color */
+    background-color: #240E7A;  /* Primary color to match the navbar */
+    color: white;
+    font-size: 1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    display: block;  /* Ensure the button is visible */
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;  /* Align font */
 }
 
 .form-submit:hover {
-    background-color: #2563eb; /* Darker blue on hover */
+    background-color: #3c2178;  /* Darker hover state for button */
 }
 
+/* Message Section */
 .message {
-    text-align: center; /* Center text */
-    margin-top: 16px; /* Space above message */
+    text-align: center;
+    margin-top: 20px;
+}
+
+.message p {
+    font-size: 0.875rem;
+    color: #4a5568;
 }
 
 .message a {
-    color: #3b82f6; /* Blue color for links */
-    text-decoration: underline; /* Underline for links */
+    color: #240E7A;  /* Link color matching the navbar */
+    text-decoration: underline;
 }
 
 .message a:hover {
-    text-decoration: none; /* Remove underline on hover */
+    color: #3c2178;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .signup-container {
+        margin: 20px;
+        padding: 20px;
+    }
 }

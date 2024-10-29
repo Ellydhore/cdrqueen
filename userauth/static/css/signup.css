@@ -1,0 +1,94 @@
+/* Sign-up Container */
+.signup-container {
+    background-color: #fff;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;  /* Align with your navbar font */
+}
+
+.signup-container h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #240E7A;  /* Matching the color scheme of the navbar */
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+.form-with-validation {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-with-validation div {
+    margin-bottom: 15px;
+}
+
+.form-with-validation input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: 'Roboto', sans-serif;  /* Font family aligned with navbar */
+}
+
+.form-with-validation input:focus {
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.3);
+    outline: none;
+}
+
+/* Submit Button */
+.form-submit {
+    background-color: #240E7A;  /* Primary color to match the navbar */
+    color: white;
+    font-size: 1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    display: block;  /* Ensure the button is visible */
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;  /* Align font */
+}
+
+.form-submit:hover {
+    background-color: #3c2178;  /* Darker hover state for button */
+}
+
+/* Message Section */
+.message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.message p {
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.message a {
+    color: #240E7A;  /* Link color matching the navbar */
+    text-decoration: underline;
+}
+
+.message a:hover {
+    color: #3c2178;
+    text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .signup-container {
+        margin: 20px;
+        padding: 20px;
+    }
+}

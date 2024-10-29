@@ -1,32 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <section class="product-grid" id="product-grid">
-        {% for product in products %}
-        <div class="product-item" data-name="{{ product.name }}">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            <h2>{{ product.name }}</h2>
-            <p>${{ product.price }}</p>
-            <button onclick="viewDetails('{{ product.name }}', '{{ product.price }}', '{{ product.description }}')">View Details</button>
-        </div>
-        {% empty %}
-        <p>No products found.</p>
-        {% endfor %}
-    </section>
-</div>
+{% extends 'base_nav.html' %}
+{% load static %}
 
-<!-- Product Detail Modal -->
-<div id="product-modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modal-product-name"></h2>
-        <p><strong>Price:</strong> $<span id="modal-product-price"></span></p>
-        <p id="modal-product-description"></p>
-    </div>
-</body>
-</html>
+{% block title %}Product Catalog{% endblock %}
+
+{% block content %}
+<h1>Product Catalog</h1>
+
+<!-- Search and Filter Section -->
+<form method="get" action="{% url 'product_catalog' %}">
+    <input type="text" name="query" placeholder="Search by name or description" value="{{ query }}">
+    <select name="category">
+        <option value="">All Categories</option>
+        <option value="CPU" {% if category == 'CPU' %}selected{% endif %}>Processor</option>
+        <option value="GPU" {% if category == 'GPU' %}selected{% endif %}>Graphics Card</option>
+        <option value="RAM" {% if category == 'RAM' %}selected{% endif %}>Memory</option>
+        <option value="HDD" {% if category == 'HDD' %}selected{% endif %}>Hard Disk Drive</option>
+        <option value="SSD" {% if category == 'SSD' %}selected{% endif %}>Solid State Drive</option>
+    </select>
+    <input type="number" name="min_price" placeholder="Min Price" value="{{ min_price }}">
+    <input type="number" name="max_price" placeholder="Max Price" value="{{ max_price }}">
+    <button type="submit">Filter</button>
+</form>
+
+<!-- Product Grid Section -->
+<div class="product-grid">
+    {% for product in products %}
+        <div class="product-item">
+            {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'default_image.jpg' %}" alt="No image available">
+            {% endif %}
+            <h2>{{ product.name }}</h2>
+            <p><strong>Brand:</strong> {{ product.brand }}</p>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Description:</strong> {{ product.description|truncatewords:20 }}</p>
+        </div>
+    {% empty %}
+        <p>No products found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
