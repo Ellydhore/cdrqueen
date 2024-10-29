@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
-from .models import Product
+from productmanagement.models import Product
 
 #import category 
 

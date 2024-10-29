@@ -4,5 +4,6 @@ __pycache__/
 
 # Ignore other common files (optional)
 .env
+.venv
 *.log
 *.sqlite3
