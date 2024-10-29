@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'checkout',
     'helpandsupport',
     'home',
+    'info',
     'orderhistory',
     'ordermanagement',
     'paymentmanagement',
@@ -50,7 +51,9 @@ INSTALLED_APPS = [
     'productmanagement',
     'shippingmanagement',
     'shoppingcart',
+    'support',
     'userauth',
+    'usermanagement',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +97,8 @@ DATABASES = {
     }
 }
 
+# Custom User Model
+AUTH_USER_MODEL = 'usermanagement.CustomUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

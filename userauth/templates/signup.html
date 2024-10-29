@@ -1,4 +1,4 @@
-{% extends 'base_nav.html' %}
+{% extends 'base_nav_auth.html' %}
 {% load static %}
 
 {% block css_block %}
@@ -10,40 +10,63 @@
 {% block content %}
 <!-- Main -->
 <main>
-    <center>
-    
-    <div class="signup-container my-5">
-        <h2>Create Account</h2>
-        <form class="form-with-validation" action="{% url 'signup' %}" method="post">
+
+<center><div class="mb-16">
+    <img src="{% static 'images/logo.png' %}" alt="cdrqueen logo" class="logo-img" />
+    <div class="signup-container">
+        <h1 class="signup-title">Create Account</h1>
+        <form class="signup-form" method="post">
             {% csrf_token %}
-            <div>
-                <input type="text" name="first_name" placeholder="First Name" required>
+            <div class="form-group">
+                <input type="text" name="first_name" placeholder="First Name" required />
             </div>
-            <div>
-                <input type="text" name="last_name" placeholder="Last Name" required>
+            <div class="form-group">
+                <input type="text" name="last_name" placeholder="Last Name" required />
             </div>
-            <div>
-                <input type="email" name="email" placeholder="Email" required>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" required />
             </div>
-            <div>
-                <input type="text" name="username" placeholder="Username" required>
+            <div class="form-group">
+                <input type="text" name="username" placeholder="Username" required />
             </div>
-            <div>
-                <input type="password" name="password1" placeholder="Password" required>
+            <div class="form-group-pass password-container">
+                <input type="password" name="password1" id="password1" placeholder="Password" required />
+                <span class="show-icon" onclick="togglePassword('password1', 'eye-icon1')">
+                    <i class="bx bx-show" id="eye-icon1"></i>
+                </span>
             </div>
-            <div>
-                <input type="password" name="password2" placeholder="Repeat Password" required>
+
+            <div class="form-group-pass password-container">
+                <input type="password" name="password2" id="password2" placeholder="Repeat Password" required />
+                <span class="show-icon" onclick="togglePassword('password2', 'eye-icon2')">
+                    <i class="bx bx-show" id="eye-icon2"></i>
+                </span>
             </div>
-            <button class="form-submit">Submit</button>
+            <button type="submit" class="signup-btn">Sign Up</button>
         </form>
-        <div class="message">
-            <p>Already have an account? <a href="/">Login</a></p>
-        </div>
+        <p class="login-message">Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </div>
-</center>
+</div></center>
+
 </main>
 <!-- End Main -->   
 {% endblock %}
 
 {% block js_block %}
+<script>
+function togglePassword(inputId, iconId) {
+    const passwordInput = document.getElementById(inputId);
+    const showPasswordIcon = document.getElementById(iconId);
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showPasswordIcon.classList.remove('bx-show');
+        showPasswordIcon.classList.add('bx-hide'); // Change to the hide icon
+    } else {
+        passwordInput.type = 'password';
+        showPasswordIcon.classList.remove('bx-hide');
+        showPasswordIcon.classList.add('bx-show'); // Change back to the show icon
+    }
+}
+</script>
 {% endblock %}
