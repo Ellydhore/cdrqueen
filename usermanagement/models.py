@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.conf import settings
-from productmanagement.models import Product  # Ensure this import works
+from productmanagement.models import Product
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
@@ -36,11 +36,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=15, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    
-    # Relationships
-    address = models.OneToOneField('Address', on_delete=models.SET_NULL, null=True, blank=True)
-    bank = models.OneToOneField('Bank', on_delete=models.SET_NULL, null=True, blank=True)
-    card = models.OneToOneField('Card', on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = CustomUserManager()
 
@@ -55,7 +50,7 @@ class ShoppingCart(models.Model):
 
 class CartItem(models.Model):
     cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, related_name='items')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Reference to Product
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     item_total = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -67,7 +62,7 @@ class Address(models.Model):
     country = models.CharField(max_length=100)
 
 class Bank(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bank_detail')  # Added related_name
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bank_detail')
     bank_name = models.CharField(max_length=255)
     account_number = models.CharField(max_length=50, unique=True)
 
@@ -98,7 +93,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)  # Reference to Product
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     item_total = models.DecimalField(max_digits=10, decimal_places=2)
 
