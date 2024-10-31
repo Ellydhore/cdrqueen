@@ -141,6 +141,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "home/static",
     BASE_DIR / "userauth/static",
     BASE_DIR / "shared/static",
+    BASE_DIR / "orderhistory/static",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

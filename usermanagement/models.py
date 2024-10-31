@@ -52,14 +52,35 @@ class CartItem(models.Model):
     cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    item_total = models.DecimalField(max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
+
 
 class Address(models.Model):
+    ADDRESS_LABEL_CHOICES = [
+        ('home', 'Home'),
+        ('work', 'Work')
+    ]
+
+    ADDRESS_TYPE_CHOICES = [
+        ('default', 'Default'),
+        ('pickup_address', 'Pickup Address'),
+        ('return_address', 'Return Address')
+    ]
+
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='addresses')
-    street = models.CharField(max_length=255)
-    city = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=20)
-    country = models.CharField(max_length=100)
+    street = models.CharField(max_length=255, blank=True)
+    barangay = models.CharField(max_length=255, blank=True) 
+    city = models.CharField(max_length=255, blank=True)
+    province = models.CharField(max_length=255, blank=True)
+    region = models.CharField(max_length=255, blank=True)
+    country = models.CharField(max_length=255, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    specific_location = models.CharField(max_length=255, blank=True)
+    address_label = models.CharField(max_length=10, choices=ADDRESS_LABEL_CHOICES, default='Home')
+    address_type = models.CharField(max_length=15, choices=ADDRESS_TYPE_CHOICES, default='Default')
+
+    def __str__(self):
+        return f"{self.get_address_label_display()} - {self.street}, {self.city}"
 
 class Bank(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bank_detail')
@@ -79,8 +100,17 @@ class Order(models.Model):
         ('cancelled', 'Cancelled'),
         ('return_refund', 'Return/Refund')
     ]
+    DELIVERY_STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_transit', 'In Transit'),
+        ('out_for_delivery', 'Out for Delivery'),
+        ('delivered', 'Delivered'),
+        ('returned', 'Returned')
+    ]
+    
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='orders')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='to_receive')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, blank=True)
+    delivery_status = models.CharField(max_length=20, choices=DELIVERY_STATUS_CHOICES, blank=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     refund_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     date_delivered = models.DateField(null=True, blank=True)
@@ -89,13 +119,25 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"Order {self.id} - {self.user.username}"
+        return f"Order {self.id} - {self.user.username} - {self.get_delivery_status_display()}"
+
+
+class DeliveryStatusUpdate(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='delivery_status_updates')
+    status = models.CharField(max_length=20, choices=Order.DELIVERY_STATUS_CHOICES)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['timestamp']  # Ensures the updates are ordered by time
+
+    def __str__(self):
+        return f"{self.get_status_display()} at {self.timestamp} for Order {self.order.id}"
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    item_total = models.DecimalField(max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity} for Order {self.order.id}"

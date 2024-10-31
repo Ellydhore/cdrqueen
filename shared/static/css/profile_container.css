@@ -1,0 +1,111 @@
+/* Container */
+.profile-container {
+    width: 90%;
+    min-height: 500px;
+    margin: 2% auto;
+    border: 1px solid #FFF500;
+    box-shadow: 0 5px 20px #4880FF;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Profile Navigation (Left Panel) */
+.profile-navigation {
+    width: 360px;
+    background-color: rgba(36, 14, 122, 0.6);
+    padding: 16px;
+}
+
+.list-container {
+    margin-top: 2.2rem;
+}
+
+.profile-navigation h2 {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    color: #FFF;
+    text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.navigation-list {
+    margin: 0.4rem 1rem; 
+    text-shadow: 2px 6px 4px rgba(0, 0, 0, 0.5);
+}
+
+.navigation-list .bx {
+    color: #FFF;
+}
+
+.navigation-list li {
+    font-size: 1rem; /* Adjust to match the text size */
+    color: #FFF;
+}
+
+.navigation-list a {
+    position: absolute;
+    font-family: 'Ubuntu', sans-serif;
+    color: #FFF;
+    font-style: italic;
+    transition: color 0.3s;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.navigation-list a:hover {
+    color: #FFF500;
+    font-weight: 100 !important;
+    letter-spacing: 1.5px;
+    background: none;
+    transition: all 0.3s ease 0s;
+}
+
+/* Profile Details (Right Panel) */
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.details-header {
+    background-color: #FFF500;
+    color: #FFF;
+    font-weight: bold;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 16px;
+}
+
+.details-content {
+    background-color: rgba(72, 128, 255, 0.5);
+    padding: 16px;
+    color: #333;
+    flex-grow: 1;
+}
+
+.page-name {
+    font-family: 'Ubuntu', sans-serif;
+    transform: skew(-30deg);
+    background-color: #4C2DC5;
+    border-radius: 5px 0px 0px 5px;
+    padding-left: 1.5em;
+	padding-right: 1.5em;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}
+
+.subpage-name {
+    font-family: 'Ubuntu', sans-serif;
+    transform: skew(-30deg);
+    border: 2px solid #240E7A;
+    background-color: #4C2DC5;
+    border-radius: 0px 5px 5px 0px;
+    padding-left: 1.5em;
+	padding-right: 1.5em;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    box-shadow: 0 5px 20px #000;
+}
