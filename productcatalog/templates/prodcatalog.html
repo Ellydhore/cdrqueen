@@ -4,41 +4,116 @@
 {% block title %}Product Catalog{% endblock %}
 
 {% block content %}
-<h1>Product Catalog</h1>
 
-<!-- Search and Filter Section -->
-<form method="get" action="{% url 'product_catalog' %}">
-    <input type="text" name="query" placeholder="Search by name or description" value="{{ query }}">
-    <select name="category">
-        <option value="">All Categories</option>
-        <option value="CPU" {% if category == 'CPU' %}selected{% endif %}>Processor</option>
-        <option value="GPU" {% if category == 'GPU' %}selected{% endif %}>Graphics Card</option>
-        <option value="RAM" {% if category == 'RAM' %}selected{% endif %}>Memory</option>
-        <option value="HDD" {% if category == 'HDD' %}selected{% endif %}>Hard Disk Drive</option>
-        <option value="SSD" {% if category == 'SSD' %}selected{% endif %}>Solid State Drive</option>
-    </select>
-    <input type="number" name="min_price" placeholder="Min Price" value="{{ min_price }}">
-    <input type="number" name="max_price" placeholder="Max Price" value="{{ max_price }}">
-    <button type="submit">Filter</button>
-</form>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&family=Nunito+Sans:wght@400&display=swap');
+    
+    h1 {
+        font-family: 'Ubuntu', sans-serif;
+        text-shadow: 5px 10px 2px rgba(0, 0, 0, 0.5);
+    }
+</style>
 
-<!-- Product Grid Section -->
-<div class="product-grid">
-    {% for product in products %}
-        <div class="product-item">
-            {% if product.image_url %}
-                <img src="{{ product.image_url }}" alt="{{ product.name }}">
-            {% else %}
-                <img src="{% static 'default_image.jpg' %}" alt="No image available">
-            {% endif %}
-            <h2>{{ product.name }}</h2>
-            <p><strong>Brand:</strong> {{ product.brand }}</p>
-            <p><strong>Price:</strong> ${{ product.price }}</p>
-            <p><strong>Description:</strong> {{ product.description|truncatewords:20 }}</p>
-        </div>
-    {% empty %}
-        <p>No products found.</p>
-    {% endfor %}
+
+<div class="w-full h-80 mb-10 overflow-hidden rounded-lg shadow-md">
+    <img src="https://www.asus.com/media/Odin/Websites/my/ProductLine/20220623031101.jpg" 
+         class="w-full h-full object-cover" 
+         alt="ASUS ROG RTX 4090">
 </div>
-{% endblock %}
 
+
+<!-- Container for background image and carousel -->
+<div class="mb-1.5 text-center">
+    
+    <!-- Carousel Content (Overlaying on the background image) -->
+    <h1 class="text-8xl font-semibold mb-2 text-white z-10">Trending</h1>
+    <div class="flex justify-center space-x-4 overflow-x-auto z-10">
+        
+        <!-- Loop to display trending products or a placeholder if none exist -->
+        {% for product in trending_products %}
+            <div class="carousel-item bg-white rounded shadow p-4 w-40">
+                <img src="{{ product.images.first.image_url_1 }}" alt="{{ product.name }}" class="h-24 w-full object-cover mb-2">
+                <h3 class="text-sm font-medium">{{ product.name }}</h3>
+                <p class="text-gray-700">₱{{ product.price }}</p>
+            </div>
+        {% empty %}
+            <!-- Placeholder item if no trending products are available -->
+            <div class="carousel-item bg-gray-200 rounded shadow p-4 w-40">
+                <p class="text-center text-gray-500">No trending products available</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+        <!-- Background image centered behind the carousel -->
+    <img src="../../static/images/platform.png" class="mx-auto w-full object-cover" alt="Background Platform Image">
+
+
+<!-- Main container for Sidebar and Product Grid -->
+<div class="flex justify-center mt-24 mb-40">
+    <div class="flex space-x-4 w-full max-w-6xl"> <!-- Set a max width for the child flex container -->
+        
+        <!-- Sidebar Search and Filter Section -->
+        <div class="w-1/4 p-4 bg-gray-100 rounded-lg">
+            <h2 class="text-xl font-semibold mb-3">Filter & Search</h2>
+            <form method="get" action="{% url 'product_catalog' %}" class="space-y-4">
+                <!-- Search bar -->
+                <input 
+                    type="text" 
+                    name="query" 
+                    placeholder="Search by name or description" 
+                    value="{{ query }}" 
+                    class="w-full p-2 border border-gray-300 rounded"
+                >
+                
+                <!-- Category selection dropdown -->
+                <select name="category" class="w-full p-2 border border-gray-300 rounded" onchange="location = this.value;">
+                    <option value="">All Categories</option>
+                    {% for cat in Category.objects.all %}
+                    <option value="{% url 'category_product_catalog' cat.slug %}" {% if category and category.slug == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+                
+                <!-- Price range inputs -->
+                <div class="flex space-x-2">
+                    <input 
+                        type="number" 
+                        name="min_price" 
+                        placeholder="Min Price" 
+                        value="{{ min_price }}" 
+                        class="w-1/2 p-2 border border-gray-300 rounded"
+                    >
+                    <input 
+                        type="number" 
+                        name="max_price" 
+                        placeholder="Max Price" 
+                        value="{{ max_price }}" 
+                        class="w-1/2 p-2 border border-gray-300 rounded"
+                    >
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
+                    Apply Filters
+                </button>
+            </form>
+        </div>
+
+        <!-- Product Grid Section -->
+        <div class="w-3/4">
+            <!-- Product Grid -->
+            <div class="grid grid-cols-3 gap-6">
+                {% for product in products %}
+                    <div class="product-item bg-white shadow-md p-4">
+                        <img src="{{ product.image_url }}" alt="{{ product.name }}" class="h-32 w-full object-cover mb-3 rounded">
+                        <h2 class="text-lg font-semibold">{{ product.name }}</h2>
+                        <p class="text-gray-700">₱{{ product.price }}</p>
+                    </div>
+                {% empty %}
+                    <p class="col-span-3 text-center text-gray-600">No products found in this category.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
