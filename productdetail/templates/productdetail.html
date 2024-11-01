@@ -1,11 +1,11 @@
 {% extends 'base_nav.html' %}
 {% load static %}
 
-{% block css_block%}
+{% block css_block %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
-{% block title%}Product Detail{% endblock %}
+{% block title %}Product Detail{% endblock %}
 
 {% block content %}
 <div class="bg-white">
@@ -32,45 +32,29 @@
     </nav>
 
     <!-- Image gallery -->
-<div class="mx-auto mt-6 max-w-7xl sm:px-6 lg:px-8">
-  <div class="grid grid-cols-5 gap-x-8">
-    <!-- Left side: scrollable container with small images -->
-     <!--
-    <div class="col-span-1 max-h-[300px] overflow-y-scroll scrollbar-thin">
-      <div class="flex flex-col gap-y-4">
-        <div class="overflow-hidden rounded-lg h-24 w-full">
-          <img src="{{ product.images.first.image_url_1 }}" alt="Small Image 1" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
-        </div>
-        <div class="overflow-hidden rounded-lg h-24 w-full">
-          <img src="{{ product.images.first.image_url_1 }}" alt="Small Image 2" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
-        </div>
-        <div class="overflow-hidden rounded-lg h-24 w-full">
-          <img src="{{ product.images.first.image_url_1 }}" alt="Small Image 3" class="h-full w-full object-contain cursor-pointer" onclick="changeMainImage(this)">
+    <div class="mx-auto mt-6 max-w-7xl sm:px-6 lg:px-8">
+      <div class="grid grid-cols-5 gap-x-8">
+        <!-- Center: large main image -->
+        <div class="col-span-4 flex justify-center items-center">
+          <div class="fav_products_image">
+            {% if product.images.first %}
+              <img class="rounded-lg" id="main-image" src="{{ product.images.first.image_url_1 }}">
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
-    -->
 
-    <!-- Center: large main image -->
-    <div class="col-span-4 flex justify-center items-center">
-      <div class="fav_products_image">
-        {% if product.images.first %}
-            <img class="rounded-lg" src="{{ product.images.first.image_url_1 }}">
-        {% endif %}
-    </div>
-    </div>
-  </div>
-</div>
+    <script>
+      function changeMainImage(imageElement) {
+        // Get the main image element in the center
+        const mainImage = document.getElementById('main-image');
+        
+        // Change the src of the main image to the clicked image's src
+        mainImage.src = imageElement.src;
+      }
+    </script>
 
-<script>
-  function changeMainImage(imageElement) {
-    // Get the main image element in the center
-    const mainImage = document.getElementById('main-image');
-    
-    // Change the src of the main image to the clicked image's src
-    mainImage.src = imageElement.src;
-  }
-</script>
     <!-- Product info -->
     <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
       <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
@@ -87,29 +71,51 @@
           <h3 class="sr-only">Reviews</h3>
           <div class="flex items-center">
             <div class="flex items-center">
-              <!-- Active: "text-gray-900", Default: "text-gray-200" -->
-              <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-              </svg>
-              <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-              </svg>
-              <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-              </svg>
-              <svg class="h-5 w-5 flex-shrink-0 text-gray-900" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-              </svg>
-              <svg class="h-5 w-5 flex-shrink-0 text-gray-200" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z" clip-rule="evenodd" />
-              </svg>
+              <!-- Rating stars -->
+              <svg class="h-5 w-5 flex-shrink-0 text-gray-900" ...></svg>
+              <p class="sr-only">4 out of 5 stars</p>
+              <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
             </div>
-            <p class="sr-only">4 out of 5 stars</p>
-            <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
           </div>
         </div>
 
-        <form class="mt-10">
+        <!-- Quantity Selector -->
+        <div class="mt-4 flex items-center">
+          <label for="quantity" class="text-sm font-medium text-gray-700 mr-3">Quantity</label>
+          <div class="flex items-center">
+            <button type="button" onclick="decrementQuantity()" class="px-2 py-1 border border-gray-300 text-gray-600 hover:bg-gray-100">-</button>
+            <input type="text" id="quantity" name="quantity" min="1" value="1" class="w-12 mx-2 text-center border-gray-300 rounded-md" oninput="validateQuantity()" />
+            <button type="button" onclick="incrementQuantity()" class="px-2 py-1 border border-gray-300 text-gray-600 hover:bg-gray-100">+</button>
+          </div>
+        </div>
+
+        <script>
+          function incrementQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            quantityInput.value = Math.max(1, parseInt(quantityInput.value) + 1);
+          }
+
+          function decrementQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            const currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+              quantityInput.value = currentQuantity - 1;
+            }
+          }
+
+          function validateQuantity() {
+            const quantityInput = document.getElementById('quantity');
+            quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
+            if (quantityInput.value < 1) {
+              quantityInput.value = 1;
+            }
+          }
+        </script>
+
+        <form class="mt-10" method="POST" action="{% url 'product_detail' product.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <input type="hidden" name="quantity" id="hidden_quantity" value="1">
           <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
         </form>
       </div>
@@ -118,40 +124,15 @@
         <!-- Description and details -->
         <div>
           <h3 class="sr-only">Description</h3>
-
           <div class="space-y-6">
             <p class="text-base text-gray-900">{{ product.description }}</p>
           </div>
         </div>
-         <!-- 
-        <div class="mt-10">
-          <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
-          -->
-
-          <!-- 
-          <div class="mt-4">
-            <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
-              <li class="text-gray-400"><span class="text-gray-600">High refresh rates up to 240Hz</span></li>
-              <li class="text-gray-400"><span class="text-gray-600">Ultra-thin bezel for a seamless viewing experience</span></li>
-              <li class="text-gray-400"><span class="text-gray-600">4K UHD resolution for stunning clarity</span></li>
-              <li class="text-gray-400"><span class="text-gray-600">Wide color gamut with HDR support</span></li>
-            </ul>
-          </div>
-        </div> -->
-
-        <!--
-        <div class="mt-10">
-          <h2 class="text-sm font-medium text-gray-900">Details</h2>
-
-          <div class="mt-4 space-y-6">
-            <p class="text-sm text-gray-600"> This monitor features a 32-inch display, offering both 144Hz and 240Hz options for fast-paced action, making it perfect for gamers and professionals alike. With HDMI, DisplayPort, and USB-C connectivity, it's ready for any device setup. Experience incredible color accuracy and reduced motion blur for all your multimedia tasks.</p>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
 </div>
 {% endblock %}
 
-{% block js_block%}
+{% block js_block %}
 {% endblock %}
