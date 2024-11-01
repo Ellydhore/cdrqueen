@@ -1,43 +1,92 @@
 {% extends 'base_nav.html' %}
 {% load static %}
 
-{% block css_block%}
+{% block css_block %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
-{% block title%}Shopping Cart{% endblock %}
+{% block title %}Shopping Cart{% endblock %}
 
 {% block content %}
-    <h1>Your Shopping Cart</h1>
+<div class="flex flex-col min-h-screen">
+  <!-- Background backdrop -->
+  <div class="fixed inset-0 bg-gray-500 bg-opacity-75" aria-hidden="true"></div>
+  
+  <!-- Main content for the shopping cart -->
+  <div class="flex-grow flex items-center justify-center z-10 relative">
+    <div class="relative w-full max-w-lg bg-white rounded-lg shadow-lg overflow-hidden">
+      <div class="flex h-full flex-col overflow-y-scroll">
+        <div class="flex-1 px-6 py-4 sm:px-8">
+          <div class="flex items-start justify-between">
+            <h2 class="text-lg font-medium text-gray-900">Shopping cart</h2>
+            <div class="ml-3 flex h-7 items-center">
+              <button type="button" class="text-gray-400 hover:text-gray-500">
+                <span class="sr-only">Close panel</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-    {% if cart_items %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                    <tr>
-                        <td>{{ item.product.name }}</td> <!-- Adjust based on your product model -->
-                        <td>{{ item.quantity }}</td>
-                        <td>${{ item.product.price|floatformat:2 }}</td> <!-- Display price with 2 decimal places -->
-                        <td>${{ item.subtotal|floatformat:2 }}</td> <!-- Display subtotal with 2 decimal places -->
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+          <div class="mt-6">
+            <div class="flow-root">
+              {% if cart_items %}
+                <ul role="list" class="-my-6 divide-y divide-gray-200">
+                  {% for item in cart_items %}
+                    <li class="flex py-6">
+                      <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="h-full w-full object-cover object-center">
+                      </div>
 
-        <h2>Total Price: ${{ total_price|floatformat:2 }}</h2>
-    {% else %}
-        <p>Your cart is empty.</p>
-    {% endif %}
+                      <div class="ml-4 flex flex-1 flex-col">
+                        <div>
+                          <div class="flex justify-between text-base font-medium text-gray-900">
+                            <h3>{{ item.product.name }}</h3>
+                            <p class="ml-4">${{ item.product.price|floatformat:2 }}</p>
+                          </div>
+                          <p class="mt-1 text-sm text-gray-500">{{ item.product.description|truncatewords:5 }}</p>
+                        </div>
+                        <div class="flex flex-1 items-end justify-between text-sm">
+                          <p class="text-gray-500">Qty {{ item.quantity }}</p>
+                          <div class="flex">
+                            <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                <p class="text-lg text-gray-600 mt-4 text-center">Your cart is empty.</p>
+                <a href="{% url 'home' %}" class="mt-4 inline-block text-blue-500 hover:underline">Start Shopping</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
 
-    <a href="{% url 'product_list' %}">Continue Shopping</a> <!-- Link to product list page -->
+        <div class="border-t border-gray-200 px-6 py-4 sm:px-8">
+          {% if cart_items %}
+            <div class="flex justify-between text-base font-medium text-gray-900">
+              <p>Total</p>
+              <p>${{ total_price|floatformat:2 }}</p>
+            </div>
+            <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+            <div class="mt-4">
+              <a href="{% url 'checkout' %}" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+            </div>
+          {% endif %}
+          <div class="mt-4 flex justify-center text-center text-sm text-gray-500">
+            <p>
+              or
+              <a href="{% url 'home' %}" class="font-medium text-indigo-600 hover:text-indigo-500">Continue Shopping <span aria-hidden="true"> &rarr;</span></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
 {% block js_block %}
