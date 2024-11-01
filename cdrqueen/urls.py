@@ -34,4 +34,5 @@ urlpatterns = [
     path('shippingmanagement/', include('shippingmanagement.urls')),
     path('shoppingcart/', include('shoppingcart.urls')),
     path('userauth/', include('userauth.urls')),
+    path('my_account/', include('myaccount.urls')),
 ]

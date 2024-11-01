@@ -33,8 +33,8 @@
             <ul class="flex space-x-6">
                 <li><a href="{% url 'home' %}" class="header-navbar-links">HOME</a></li>
             <!-- COMPONENTS DROP DOWN -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-links">COMPONENTS 
+                <li class="dropdown-category">
+                    <a href="#">COMPONENTS 
                         <i class="bx bx-chevron-down bx-sm icon-links"></i>
                     </a>
                     <ul class="dropdown-content">
@@ -50,8 +50,8 @@
                     </ul>
                 </li>
             <!-- GAMING GEAARS DROP DOWN --> 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-links">GAMING GEARS 
+                <li class="dropdown-category">
+                    <a href="#">GAMING GEARS 
                         <i class="bx bx-chevron-down bx-sm icon-links"></i>
                     </a>
                     <ul class="dropdown-content">
@@ -69,9 +69,9 @@
                 <li><a href="#" class="header-navbar-links">PRE-BUILD GAMING PC</a></li>
             </ul>
             <ul class="flex space-x-4 relative">
-                <li class="dropdown">
+                <li class="dropdown-search">
                     <i class="bx bx-search-alt bx-tada-hover bx-sm icon-links"></i>
-                    <div class="search-dropdown">
+                    <div class="search-box">
                         <form>
                             <input type="text" class="search-input" placeholder="Search.." name="search">
                             <button type="submit">Go</button>
@@ -82,13 +82,20 @@
                 <!-- Check if the user is logged in -->
 
                 {% if request.user.is_authenticated %}
-                    <li><i class="bx bx-user bx-tada-hover bx-sm icon-links"></i></li>
+
+                    <li class="dropdown-profile">
+                        <i class="bx bx-user bx-tada-hover bx-sm icon-links"></i>
+                        <ul class="profile-links">
+                            <li><a href="{% url 'profile' %}">My Account</a></li>
+                            <li><a href="{% url 'all_purchases' %}">My Purchases</a></li>
+                        </ul>
+                    </li>
                     <li><i class="bx bx-cart bx-tada-hover bx-sm icon-links"></i></li>
                     <!-- Logout Form -->
                     <li>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button type="submit" class="header-navbar-links">
+                            <button type="submit">
                                 <i class="bx bx-exit bx-fade-right-hover bx-sm icon-links"></i>
                             </button>
                         </form>
