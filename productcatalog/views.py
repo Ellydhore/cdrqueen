@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
-from productmanagement.models import Product, Category
+from productmanagement.models import Product, Category, ProductImage
 
 # Create your views here.
 def foo_product_catalog(request):

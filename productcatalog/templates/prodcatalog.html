@@ -5,6 +5,8 @@
 
 {% block content %}
 
+
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400&family=Nunito+Sans:wght@400&display=swap');
     
@@ -23,27 +25,30 @@
 
 
 <!-- Container for background image and carousel -->
+<!-- Trending Section -->
 <div class="mb-1.5 text-center">
-    
-    <!-- Carousel Content (Overlaying on the background image) -->
     <h1 class="text-8xl font-semibold mb-2 text-white z-10">Trending</h1>
     <div class="flex justify-center space-x-4 overflow-x-auto z-10">
         
-        <!-- Loop to display trending products or a placeholder if none exist -->
         {% for product in trending_products %}
-            <div class="carousel-item bg-white rounded shadow p-4 w-40">
-                <img src="{{ product.images.first.image_url_1 }}" alt="{{ product.name }}" class="h-24 w-full object-cover mb-2">
+            <div class="carousel-item bg-white rounded-lg shadow p-4 w-40">
+                <!-- Get the first image for the trending product -->
+                {% if product.images.first %}
+                    <img src="{{ product.images.first.image_url_1 }}" alt="{{ product.name }}" class="h-24 w-full object-cover mb-2 rounded-lg">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" alt="Placeholder Image" class="h-24 w-full object-cover mb-2 rounded-lg">
+                {% endif %}
                 <h3 class="text-sm font-medium">{{ product.name }}</h3>
                 <p class="text-gray-700">₱{{ product.price }}</p>
             </div>
         {% empty %}
-            <!-- Placeholder item if no trending products are available -->
             <div class="carousel-item bg-gray-200 rounded shadow p-4 w-40">
                 <p class="text-center text-gray-500">No trending products available</p>
             </div>
         {% endfor %}
     </div>
 </div>
+
         <!-- Background image centered behind the carousel -->
     <img src="../../static/images/platform.png" class="mx-auto w-full object-cover" alt="Background Platform Image">
 
@@ -52,29 +57,40 @@
 <div class="flex justify-center mt-24 mb-40">
     <div class="flex space-x-4 w-full max-w-6xl"> <!-- Set a max width for the child flex container -->
         
-        <!-- Sidebar Search and Filter Section -->
-        <div class="w-1/4 p-4 bg-gray-100 rounded-lg">
-            <h2 class="text-xl font-semibold mb-3">Filter & Search</h2>
-            <form method="get" action="{% url 'product_catalog' %}" class="space-y-4">
-                <!-- Search bar -->
-                <input 
-                    type="text" 
-                    name="query" 
-                    placeholder="Search by name or description" 
-                    value="{{ query }}" 
-                    class="w-full p-2 border border-gray-300 rounded"
-                >
-                
-                <!-- Category selection dropdown -->
-                <select name="category" class="w-full p-2 border border-gray-300 rounded" onchange="location = this.value;">
-                    <option value="">All Categories</option>
-                    {% for cat in Category.objects.all %}
+    
+    <!-- Sidebar Search and Filter Section -->
+    <div class="w-1/4 p-4 bg-gray-100 rounded-lg">
+        <h2 class="text-xl font-semibold mb-3">Filter & Search</h2>
+        <form method="get" action="{% url 'product_catalog' %}" class="space-y-4">
+            
+            <!-- "Remove All" Filters link -->
+            <a href="{% url 'product_catalog' %}" class="text-red-500 text-sm underline">Remove all</a>
+
+            <!-- Search bar -->
+            <input 
+                type="text" 
+                name="query" 
+                placeholder="Search by name or description" 
+                value="{{ query }}" 
+                class="w-full p-2 border border-gray-300 rounded"
+            >
+
+            <!-- Category selection dropdown -->
+            <select name="category" class="w-full p-2 border border-gray-300 rounded" onchange="location = this.value;">
+                <option value="">All Categories</option>
+                {% for cat in Category.objects.all %}
                     <option value="{% url 'category_product_catalog' cat.slug %}" {% if category and category.slug == cat.slug %}selected{% endif %}>{{ cat.name }}</option>
-                    {% endfor %}
-                </select>
-                
-                <!-- Price range inputs -->
-                <div class="flex space-x-2">
+                {% endfor %}
+            </select>
+            
+            <!-- Price Range with Toggle Dropdown -->
+            <div x-data="{ showPrice: false }" class="space-y-2">
+                <button type="button" @click="showPrice = !showPrice" class="w-full p-2 border border-gray-300 rounded bg-gray-200 text-left flex justify-between items-center">
+                    Price
+                    <span x-show="!showPrice">▼</span>
+                    <span x-show="showPrice">▲</span>
+                </button>
+                <div x-show="showPrice" class="flex space-x-2 mt-2" x-cloak>
                     <input 
                         type="number" 
                         name="min_price" 
@@ -90,13 +106,36 @@
                         class="w-1/2 p-2 border border-gray-300 rounded"
                     >
                 </div>
+            </div>
 
-                <!-- Submit button -->
-                <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
-                    Apply Filters
+            <!-- Brand Filter with Checkboxes and Toggle Dropdown -->
+            <div x-data="{ showBrand: false }" class="space-y-2">
+                <button type="button" @click="showBrand = !showBrand" class="w-full p-2 border border-gray-300 rounded bg-gray-200 text-left flex justify-between items-center">
+                    Brand
+                    <span x-show="!showBrand">▼</span>
+                    <span x-show="showBrand">▲</span>
                 </button>
-            </form>
-        </div>
+                <div x-show="showBrand" class="space-y-1 pl-2 mt-2" x-cloak>
+                    <label>
+                        <input type="checkbox" name="brand" value="Brand1" {% if 'Brand1' in selected_brands %}checked{% endif %}> Brand 1
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="brand" value="Brand2" {% if 'Brand2' in selected_brands %}checked{% endif %}> Brand 2
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="brand" value="Brand3" {% if 'Brand3' in selected_brands %}checked{% endif %}> Brand 3
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
+                Apply Filters
+            </button>
+        </form>
+    </div>
+
+
 
         <!-- Product Grid Section -->
         <div class="w-3/4">
@@ -116,4 +155,8 @@
     </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
 {% endblock %}
+
