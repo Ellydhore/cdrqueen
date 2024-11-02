@@ -2,6 +2,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.conf import settings
 from productmanagement.models import Product
+from django.core.validators import RegexValidator
+
+# Validator for phone number format
+phone_regex = RegexValidator(
+    regex=r'^(?:\+63|0)\d{10}$',  # Matches +63XXXXXXXXXX or 0XXXXXXXXX
+    message="Phone number must be in the format: '+639XXXXXXXXX' or '09XXXXXXXXX'. Exactly 11 digits after the country code or leading zero."
+)
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
@@ -33,7 +40,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, blank=True)
     gender = models.CharField(default='O', max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')])
     date_of_birth = models.DateField(null=True, blank=True)
-    phone_number = models.CharField(max_length=15, blank=True)
+    phone_number = models.CharField(
+        max_length=13,
+        validators=[phone_regex],
+        blank=True
+    )
+    image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -46,14 +58,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class ShoppingCart(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class CartItem(models.Model):
     cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
-
 
 class Address(models.Model):
     ADDRESS_LABEL_CHOICES = [
@@ -67,7 +78,7 @@ class Address(models.Model):
         ('return_address', 'Return Address')
     ]
 
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='addresses')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='addresses')
     street = models.CharField(max_length=255, blank=True)
     barangay = models.CharField(max_length=255, blank=True) 
     city = models.CharField(max_length=255, blank=True)
@@ -76,19 +87,19 @@ class Address(models.Model):
     country = models.CharField(max_length=255, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
     specific_location = models.CharField(max_length=255, blank=True)
-    address_label = models.CharField(max_length=10, choices=ADDRESS_LABEL_CHOICES, default='Home')
-    address_type = models.CharField(max_length=15, choices=ADDRESS_TYPE_CHOICES, default='Default')
+    address_label = models.CharField(max_length=10, choices=ADDRESS_LABEL_CHOICES, default='home')
+    address_type = models.CharField(max_length=15, choices=ADDRESS_TYPE_CHOICES, default='default')
 
     def __str__(self):
         return f"{self.get_address_label_display()} - {self.street}, {self.city}"
 
 class Bank(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bank_detail')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bank_detail')
     bank_name = models.CharField(max_length=255)
     account_number = models.CharField(max_length=50, unique=True)
 
 class Card(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='cards')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cards')
     card_number = models.CharField(max_length=16, unique=True)
     expiry_date = models.DateField()
     cardholder_name = models.CharField(max_length=255)
@@ -121,14 +132,13 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id} - {self.user.username} - {self.get_delivery_status_display()}"
 
-
 class DeliveryStatusUpdate(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='delivery_status_updates')
     status = models.CharField(max_length=20, choices=Order.DELIVERY_STATUS_CHOICES)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['timestamp']  # Ensures the updates are ordered by time
+        ordering = ['timestamp']
 
     def __str__(self):
         return f"{self.get_status_display()} at {self.timestamp} for Order {self.order.id}"

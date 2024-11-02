@@ -78,13 +78,24 @@
     z-index: 999;
 }
 
-.dropdown-content, 
-.profile-links {
+.dropdown-content {
     display: none;
     position: absolute;
     right: 0;
     background-color: #FFF;
     min-width: 300px;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px 0px 10px 10px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.profile-links {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #FFF;
+    min-width: 200px;
     box-shadow: 0 15px 10px rgba(0, 0, 0, 0.5);
     border-radius: 8px 0px 10px 10px;
     z-index: 1000;
