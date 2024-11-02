@@ -83,13 +83,44 @@
 
         <!-- Save Button -->
         <div class="button-container">
-            <button type="submit" class="submit-button">
+            <button type="button" id="save-button" class="submit-button">
                 Save Changes
             </button>
+        </div>
+
+        <!-- Modal Structure -->
+        <div class="modal hidden" id="confirmation-modal">
+            <p class="message">Confirm Changes?</p>
+            <div class="options">
+                <button class="btn" id="yes-button">Yes</button>
+                <button class="btn" id="no-button">No</button>
+            </div>
         </div>
     </div>
 </form>
 {% endblock %}
 
 {% block js_block %}
+<script>
+    const saveButton = document.getElementById('save-button');
+    const modal = document.getElementById('confirmation-modal');
+    const yesButton = document.getElementById('yes-button');
+    const noButton = document.getElementById('no-button');
+
+    // Function to show the modal
+    saveButton.addEventListener('click', () => {
+        modal.classList.remove('hidden'); // Show the modal
+    });
+
+    // Function to handle the 'Yes' button
+    yesButton.addEventListener('click', () => {
+        // Handle the action for 'Yes', e.g., save changes
+        modal.classList.add('hidden'); // Close the modal
+    });
+
+    // Function to handle the 'No' button
+    noButton.addEventListener('click', () => {
+        modal.classList.add('hidden'); // Close the modal
+    });
+</script>
 {% endblock %}
