@@ -1,0 +1,152 @@
+.navbar-bg {
+    position: sticky;
+    top: 0;
+    transition: top 0.3s ease;
+    background: linear-gradient(to bottom, #FFF500, #FFD700);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.header-navbar-links,
+.dropdown-category a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-family: 'Roboto Flex', sans-serif;
+    color: #240E7A;
+    font-size: 1rem;
+}
+
+.header-navbar-auth {
+    font-family: 'Ubuntu Mono', monospace;
+    color: #240E7A;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+.header-navbar-links:hover {
+    text-decoration: underline;
+}
+
+.footer-list {
+    margin-top: 0; 
+    flex-direction: column;
+}
+
+.footer-navbar-links {
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 0.5rem;
+    color: #240E7A;
+}
+
+.footer-navbar-title {
+    font-family: 'Inter', sans-serif;
+    margin-top: 0.5rem;
+    color: #240E7A;
+    font-weight: 800;
+    text-decoration: underline;
+    font-size: 1.5rem;
+}
+
+.footer-navbar-links:hover {
+    text-decoration: underline;
+}
+
+.powered-by {
+    font-family: 'Ubuntu', sans-serif;
+    margin-top: 3rem;
+    color: #240E7A;
+    font-weight: 800;
+}
+
+.icon-links {
+    color: #240E7A;
+}
+/* DROP DOWN */
+.dropdown-category, 
+.dropdown-search, 
+.dropdown-profile {
+    z-index: 1000;
+    position: relative;
+}
+
+.dropdown-category:hover i, 
+.dropdown-profile:hover {
+    background-color: #FFF;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.dropdown-content, 
+.profile-links {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #FFF;
+    min-width: 300px;
+    box-shadow: 0 15px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px 0px 10px 10px;
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.dropdown-category:hover .dropdown-content, 
+.dropdown-search:hover .search-box,
+.dropdown-profile:hover .profile-links {
+    display: block;
+}
+
+.dropdown-content a,
+.profile-links a {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    padding: 12px 16px;
+    display: block;
+}
+
+.dropdown-content a:hover,
+.profile-links a:hover {
+    background-color: #f3f3f3;
+    color: #240E7A;
+}
+
+.search-box {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: rgba(243, 243, 243, 0.9);
+    min-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.search-box form {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px 0 0 6px;
+    font-size: 1rem;
+}
+
+.search-box button {
+    padding: 8px 12px;
+    background-color: #FFD700;
+    color: #240E7A;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0 6px 6px 0; /* Rounded right */
+    transition: background-color 0.3s ease;
+}
+
+.search-box button:hover {
+    background-color: #FFC107;
+}
+/* END OF DROP DOWN */

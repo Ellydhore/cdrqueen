@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/admin_index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_navbar.css' %}">
+
+
+    <!-- Unique css for each apps goes here -->
+    {% block css_block %} 
+    {% endblock %}
+
+    <title>
+        {% block title %}cd-r queen{% endblock %}
+    </title>
+
+</head>
+<body class="bg">
+<!-- Header -->
+    <header class="navbar-bg">
+        <nav>
+            <div class="max-w-screen-l flex flex-wrap items-center justify-between mx-6 p-4">
+                <a href="{% url 'admindashboard' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <img src="{% static 'images/logo2.png' %}" class="h-12" alt="cd-r queen logo" />
+                </a>
+            </div>
+        </nav>
+    </header>
+<!-- End Header -->
+
+{% block content %}
+
+{% endblock %}
+
+<!-- Footer -->
+    <footer class="navbar-bg">
+        <nav>
+            <div class="max-w-screen-l flex flex-wrap items-start justify-between mx-6 p-5">
+                <a href="{% url 'admindashboard' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                    <img src="{% static 'images/logo2.png' %}" class="h-10" alt="cd-r queen logo" />
+                </a>
+                <div class="flex flex-wrap p-1">
+                    <ul class="footer-list">
+                        <li class="powered-by">cd-r queen Powered By Django</li>
+                    </ul>    
+                </div>
+            </div>
+        </nav>
+    </footer>
+<!-- End Footer -->
+
+<!-- Unique java script for each apps goes here -->
+{% block js_block %}
+{% endblock %}
+
+</body>
+</html>

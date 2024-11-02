@@ -1,0 +1,25 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
+{% endblock %}
+
+{% block title %}Sample Page{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<main>
+
+    <!-- Include the profile container template -->
+
+    {% include 'profile_container.html' %}
+
+    <!-- PUT YOUR CODE HERE -->
+
+</main>
+<!-- End Main -->   
+{% endblock %}
+
+{% block js_block %}
+{% endblock %}

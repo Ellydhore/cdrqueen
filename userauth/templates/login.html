@@ -1,0 +1,65 @@
+{% extends 'base_nav_auth.html' %}
+{% load static %}
+
+{% block css_block%}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block title%}Login Page{% endblock %}
+
+{% block content %}
+<!-- Main -->
+<main>
+<center><div class="mb-16">
+        <img src="{% static 'images/logo.png' %}" alt="cdrqueen logo" class="logo" />
+        <div class="login-container">
+            <h1 class="login-title">Login</h1>
+            <form class="login-form" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <i class="bx bx-user bx-sm icon-links"></i>
+                    <input type="email" name="email" placeholder="Email Address" required />
+                </div>
+
+                <div class="form-group password-container">
+                    <i class="bx bx-lock-alt bx-sm icon-links"></i>
+                    <input type="password" name="password" id="password" placeholder="Password" required />
+                    <span class="show-icon" id="toggle-password" onclick="togglePassword()">
+                        <i class="bx bx-show" id="eye-icon"></i>
+                    </span>
+                </div>
+                
+                <div class="options">
+                    <label class="remember">
+                        <input type="checkbox" name="remember" /> Remember me
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <p class="signup-prompt">Don't have an account yet? <a href="{% url 'signup' %}">Sign Up</a></p>
+            </form>
+        </div>
+</div></center>
+</main>
+<!-- End Main -->   
+{% endblock %}
+
+<!-- This is where you put your app's script -->
+{% block js_block%}
+<script>
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const showPasswordIcon = document.getElementById('eye-icon');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        showPasswordIcon.classList.remove('bx-show');
+        showPasswordIcon.classList.add('bx-hide');  // Change to the hide icon
+    } else {
+        passwordInput.type = 'password';
+        showPasswordIcon.classList.remove('bx-hide');
+        showPasswordIcon.classList.add('bx-show');  // Change back to the show icon
+    }
+}
+</script>
+{% endblock %}
