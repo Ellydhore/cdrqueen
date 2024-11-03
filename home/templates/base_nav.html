@@ -90,7 +90,12 @@
                             <li><a href="{% url 'all_purchases' %}">My Purchases</a></li>
                         </ul>
                     </li>
-                    <li><i class="bx bx-cart bx-tada-hover bx-sm icon-links"></i></li>
+                    <!-- Shopping cart -->
+                    <li>
+                        <a href="{% url 'shopping_cart' %}">
+                            <i class="bx bx-cart bx-tada-hover bx-sm icon-links"></i>
+                        </a>
+                    </li>
                     <!-- Logout Form -->
                     <li>
                         <form method="post" action="{% url 'logout' %}">
