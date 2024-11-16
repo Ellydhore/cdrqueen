@@ -1,6 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import (
+    CustomUser,
+    ShoppingCart,
+    CartItem,
+    Address,
+    Bank,
+    Card,
+    Order,
+    DeliveryStatusUpdate,
+    OrderItem
+)
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
@@ -24,3 +34,12 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'username', 'first_name', 'last_name', 'phone_number', 'gender', 'date_of_birth', 'image', 'password1', 'password2', 'is_staff', 'is_active', 'is_superuser'),
         }),
     )
+
+admin.site.register(ShoppingCart)
+admin.site.register(CartItem)
+admin.site.register(Address)
+admin.site.register(Bank)
+admin.site.register(Card)
+admin.site.register(Order)
+admin.site.register(DeliveryStatusUpdate)
+admin.site.register(OrderItem)

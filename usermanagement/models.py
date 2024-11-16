@@ -79,6 +79,11 @@ class Address(models.Model):
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='addresses')
+    phone_number = models.CharField(
+        max_length=13,
+        validators=[phone_regex],
+        blank=True
+    )
     street = models.CharField(max_length=255, blank=True)
     barangay = models.CharField(max_length=255, blank=True) 
     city = models.CharField(max_length=255, blank=True)
@@ -87,8 +92,8 @@ class Address(models.Model):
     country = models.CharField(max_length=255, blank=True)
     postal_code = models.CharField(max_length=20, blank=True)
     specific_location = models.CharField(max_length=255, blank=True)
-    address_label = models.CharField(max_length=10, choices=ADDRESS_LABEL_CHOICES, default='home')
-    address_type = models.CharField(max_length=15, choices=ADDRESS_TYPE_CHOICES, default='default')
+    address_label = models.CharField(max_length=10, choices=ADDRESS_LABEL_CHOICES, default='Home')
+    address_type = models.CharField(max_length=15, choices=ADDRESS_TYPE_CHOICES, default='Default')
 
     def __str__(self):
         return f"{self.get_address_label_display()} - {self.street}, {self.city}"

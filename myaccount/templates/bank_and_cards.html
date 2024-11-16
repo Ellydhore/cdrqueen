@@ -1,6 +1,9 @@
 {% extends 'profile_container.html' %}
 {% load static %}
-
+{% block css_block %}
+    <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
+    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+{% endblock %}
 {% block title %}Banks and Cards{% endblock %}
 
 {% block page_name %}My Account{% endblock %}
@@ -8,27 +11,44 @@
 
 
 {% block profile_contents %}
-<div class="purchased-items-container">
-    <!-- Individual item container -->
-    <div class="item-container">
-        <!-- Item content here -->
+
+<div class="address-container flex">
+    <!-- First Column -->
+    <div class="flex-none w-4/5 p-3">
+        <div class="">
+            <div class="p-2">
+                <p class="name-detail inline">Full Name | </p><p class="address-details inline">(63+) 0912-345-6789</p>
+                <p class="address-details">Street name, Building, House No.</p>
+                <p class="address-details">Barangay, City, Province, Region, Postal Code</p>
+            </div>
+            <div class="p-2 select-none">
+                <div class="address-type">Default</div>
+                <div class="address-type">Pick Up Address</div>
+                <div class="address-type">Return Address</div>
+            </div>
+        </div>
+    </div>
+    <!-- Second Column -->
+    <div class="flex-none w-1/5 p-4">
+        <div>
+            <div class="flex flex-row items-center justify-between p-2">
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+            <div class="flex items-center justify-center p-2">
+                <button class="set-btn">Set as default</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Total section container -->
-    <div class="total-container flex flex-wrap items-center justify-between">
-        <div>
-            <h3>Order Status</h3>
-        </div>
-        <div class="flex flex-col">
-            <div>
-                <h3>Total Amount</h3>
+    <!-- Modal Structure -->
+    <div class="modal hidden" id="confirmation-modal">
+            <p class="message">Confirm Changes?</p>
+            <div class="options">
+                <button class="btn" id="yes-button">Yes</button>
+                <button class="btn" id="no-button">No</button>
             </div>
-            <div>
-                <button>Buy Again</button>
-                <button>Return/Refund</button>
-                <button>Contact Shop</button>
-            </div>
-        </div>
     </div>
 </div>
+
 {% endblock %}
