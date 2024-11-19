@@ -89,29 +89,6 @@
           </div>
         </div>
 
-        <script>
-          function incrementQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            quantityInput.value = Math.max(1, parseInt(quantityInput.value) + 1);
-          }
-
-          function decrementQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            const currentQuantity = parseInt(quantityInput.value);
-            if (currentQuantity > 1) {
-              quantityInput.value = currentQuantity - 1;
-            }
-          }
-
-          function validateQuantity() {
-            const quantityInput = document.getElementById('quantity');
-            quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
-            if (quantityInput.value < 1) {
-              quantityInput.value = 1;
-            }
-          }
-        </script>
-
         <form class="mt-10" method="POST" action="{% url 'product_detail' product.id %}">
           {% csrf_token %}
           <input type="hidden" name="product_id" value="{{ product.id }}">
@@ -135,4 +112,26 @@
 {% endblock %}
 
 {% block js_block %}
+<script>
+  function incrementQuantity() {
+    const quantityInput = document.getElementById('quantity');
+    quantityInput.value = Math.max(1, parseInt(quantityInput.value) + 1);
+  }
+
+  function decrementQuantity() {
+    const quantityInput = document.getElementById('quantity');
+    const currentQuantity = parseInt(quantityInput.value);
+    if (currentQuantity > 1) {
+      quantityInput.value = currentQuantity - 1;
+    }
+  }
+
+  function validateQuantity() {
+    const quantityInput = document.getElementById('quantity');
+    quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
+    if (quantityInput.value < 1) {
+      quantityInput.value = 1;
+    }
+  }
+</script>
 {% endblock %}
