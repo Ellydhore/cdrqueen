@@ -36,16 +36,16 @@
     <!-- Profile Details (Right Panel) -->
     <div class="profile-details w-1/2 flex flex-col">
         <!-- Header Section -->
-        <div class="details-header flex flex-wrap items-center justify-between">
+        <div class="details-header flex flex-wrap items-center justify-between px-4">
             <div class="flex page-header select-none">
                 <p class="page-name">{% block page_name %}{% endblock %}</p> 
                 <p class="subpage-name">{% block subpage_name %}{% endblock %}</p>
             </div>
-            <div>{% block add_button %}{% endblock %}</div>
+            <div>{% block add_button %} {% endblock %}</div>
         </div>
 
         <!-- Content Section -->
-        <div class="details-content overflow-y-auto">
+        <div class="details-content">
             {% block profile_contents %}
             <!-- Default content or leave empty if provided by child templates -->
             {% endblock %}

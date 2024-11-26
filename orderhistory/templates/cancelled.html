@@ -1,6 +1,9 @@
 {% extends 'profile_container.html' %}
 {% load static %}
-
+{% block css_block %}
+    <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
 {% block title %}Cancelled Orders{% endblock %}
 
 {% block page_name %}My Purchases{% endblock %}
