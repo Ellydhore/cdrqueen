@@ -2,6 +2,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.conf import settings
 from productmanagement.models import Product
+from django.core.validators import RegexValidator
+
+# Validator for phone number format
+phone_regex = RegexValidator(
+    regex=r'^(?:\+63|0)\d{10}$',  # Matches +63XXXXXXXXXX or 0XXXXXXXXX
+    message="Phone number must be in the format: '+639XXXXXXXXX' or '09XXXXXXXXX'. Exactly 11 digits after the country code or leading zero."
+)
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
@@ -33,7 +40,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, blank=True)
     gender = models.CharField(default='O', max_length=10, choices=[('M', 'Male'), ('F', 'Female'), ('O', 'Other')])
     date_of_birth = models.DateField(null=True, blank=True)
-    phone_number = models.CharField(max_length=15, blank=True)
+    phone_number = models.CharField(
+        max_length=13,
+        validators=[phone_regex],
+        blank=True
+    )
+    image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -46,14 +58,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 class ShoppingCart(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class CartItem(models.Model):
     cart = models.ForeignKey(ShoppingCart, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
-
 
 class Address(models.Model):
     ADDRESS_LABEL_CHOICES = [
@@ -67,7 +78,12 @@ class Address(models.Model):
         ('return_address', 'Return Address')
     ]
 
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='addresses')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='addresses')
+    phone_number = models.CharField(
+        max_length=13,
+        validators=[phone_regex],
+        blank=True
+    )
     street = models.CharField(max_length=255, blank=True)
     barangay = models.CharField(max_length=255, blank=True) 
     city = models.CharField(max_length=255, blank=True)
@@ -83,12 +99,12 @@ class Address(models.Model):
         return f"{self.get_address_label_display()} - {self.street}, {self.city}"
 
 class Bank(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bank_detail')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bank_detail')
     bank_name = models.CharField(max_length=255)
     account_number = models.CharField(max_length=50, unique=True)
 
 class Card(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='cards')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cards')
     card_number = models.CharField(max_length=16, unique=True)
     expiry_date = models.DateField()
     cardholder_name = models.CharField(max_length=255)
@@ -121,14 +137,13 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id} - {self.user.username} - {self.get_delivery_status_display()}"
 
-
 class DeliveryStatusUpdate(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='delivery_status_updates')
     status = models.CharField(max_length=20, choices=Order.DELIVERY_STATUS_CHOICES)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['timestamp']  # Ensures the updates are ordered by time
+        ordering = ['timestamp']
 
     def __str__(self):
         return f"{self.get_status_display()} at {self.timestamp} for Order {self.order.id}"
@@ -141,3 +156,59 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity} for Order {self.order.id}"
+
+class Cancellation(models.Model):
+    REASON_CHOICES = [
+        ('price', 'Found a better price elsewhere'),
+        ('delay', 'Order delayed too long'),
+        ('mind_change', 'Changed my mind about the purchase'),
+        ('expectation', 'Product was not as expected'),
+        ('mistake', 'Placed the order by mistake'),
+    ]
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('denied', 'Denied'),
+    ]
+    
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='cancellations')
+    reason = models.CharField(max_length=50, choices=REASON_CHOICES)
+    cancel_date = models.DateTimeField(auto_now_add=True)
+    canceled_by = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+
+    def __str__(self):
+        return f"Cancellation for Order #{self.order.id} - {self.get_reason_display()}"
+
+
+class ReturnRefund(models.Model):
+    REASON_CHOICES = [
+        ('damaged', 'Damaged product'),
+        ('wrong_item', 'Received the wrong item'),
+        ('quality', 'Product quality issue'),
+        ('change_mind', 'Changed my mind'),
+        ('other', 'Other'),
+    ]
+    CONDITION_CHOICES = [
+        ('new', 'Unopened/New'),
+        ('used', 'Used'),
+        ('damaged', 'Damaged'),
+    ]
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('denied', 'Denied'),
+        ('refunded', 'Refunded'),
+    ]
+    
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, related_name='returns')
+    reason = models.CharField(max_length=50, choices=REASON_CHOICES)
+    additional_details = models.TextField(blank=True, null=True)
+    request_date = models.DateTimeField(auto_now_add=True)
+    return_condition = models.CharField(max_length=20, choices=CONDITION_CHOICES, default='new')
+    refund_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    processed_by = models.ForeignKey('CustomUser', on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Return/Refund for Item #{self.order_item.id} - {self.get_reason_display()}"

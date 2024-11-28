@@ -11,11 +11,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# Image path
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'helpandsupport',
     'home',
     'info',
+    'myaccount',
     'orderhistory',
     'ordermanagement',
     'paymentmanagement',
@@ -71,7 +75,7 @@ ROOT_URLCONF = 'cdrqueen.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "shared/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,6 +146,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "userauth/static",
     BASE_DIR / "shared/static",
     BASE_DIR / "orderhistory/static",
+    BASE_DIR / "myaccount/static",
 ]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

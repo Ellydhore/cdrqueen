@@ -1,0 +1,63 @@
+<div class="address-form-modal hidden" id="address-form-modal">
+    <p class="form-content mb-4">Add Address</p>
+    <!-- Address Form -->
+    <form id="address-form" method="POST" action="{% url 'add_address' %}">
+        {% csrf_token %}
+        <input type="hidden" id="edit-address-id" name="address_id">
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" id="phone-number" name="phone_number" placeholder="+63XXXXXXXXXX" required>      
+            </div>
+            <div class="form-group">
+                <select id="address-label" name="address_label" required>
+                    <option value="home">Home</option>
+                    <option value="work">Work</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <select id="address-type" name="address_type" required>
+                    <option value="default">Default</option>
+                    <option value="pickup_address">Pickup Address</option>
+                    <option value="return_address">Return Address</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" id="street" name="street" placeholder="Street Name" required>
+        </div>
+
+        <!-- Grouped Fields -->
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" id="barangay" name="barangay" placeholder="Barangay" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="city" name="city" placeholder="City" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="province" name="province" placeholder="Province" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <input type="text" id="region" name="region" placeholder="Region" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="country" name="country" placeholder="Country" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="postal-code" name="postal_code" placeholder="Postal Code" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <textarea id="specific-location" name="specific_location" placeholder="Describe specific location"></textarea>
+        </div>
+
+        <div class="form-btns">
+            <button type="button" class="form-btn" id="cancel-add-btn">Cancel</button>
+            <button type="submit" class="form-btn" id="save-add-btn">Save Address</button>
+        </div>
+    </form>
+</div>

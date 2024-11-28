@@ -50,6 +50,9 @@
     padding-top: 100%;
     position: relative;
 }
+.product-bg {
+    background-color: #FFF;
+} 
 
 .fav_products_image img {
     position: absolute; /* Absolute positioning inside the square */

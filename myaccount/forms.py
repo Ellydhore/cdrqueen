@@ -11,4 +11,3 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = ['phone_number', 'address_label', 'address_type', 'street', 'barangay', 'city', 'province', 'region', 'country', 'postal_code', 'specific_location']
-

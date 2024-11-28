@@ -78,7 +78,7 @@
                 <!-- Get the first image for the product -->
                 <div class="fav_products_image">
                     {% if product.images.first %}
-                        <img class="rounded-lg" src="{{ product.images.first.image_url_1 }}">
+                        <img class="product-bg rounded-lg" src="{{ product.images.first.image_url_1 }}">
                     {% endif %}
                 </div>
                 <div>
@@ -114,7 +114,7 @@
                         <!-- Get the first image for the product -->
                         <div class="best_sellers_image">
                             {% if product.images.first %}
-                                <img class="rounded-lg overflow-hidden" src="{{ product.images.first.image_url_1 }}">
+                                <img class="product-bg rounded-lg overflow-hidden" src="{{ product.images.first.image_url_1 }}">
                             {% endif %}
                         </div>
                         <div>

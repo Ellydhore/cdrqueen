@@ -1,0 +1,23 @@
+<div class="bank-form-modal hidden" id="bank-form-modal">
+    <p class="form-content mb-4">Add Your Bank Details</p>
+    <!-- Bank Form -->
+    <form id="bank-form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="edit-bank-id" name="bank_id">
+        
+        <!-- Bank Name Input -->
+        <div class="form-group">
+            <input type="text" id="bank-name" name="bank_name" placeholder="Bank Name" required>
+        </div>
+        
+        <!-- Account Number Input -->
+        <div class="form-group">
+            <input type="text" id="account-number" name="account_number" placeholder="Account Number" maxlength="16" pattern="\d{10,16}" required>
+        </div>
+        
+        <div class="form-btns">
+            <button type="button" class="form-btn" id="cancel-bank-btn">Cancel</button>
+            <button type="submit" class="form-btn" id="save-bank-btn">Save</button>
+        </div>
+    </form>
+</div>

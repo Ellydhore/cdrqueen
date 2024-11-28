@@ -1,0 +1,51 @@
+<div class="refund-form-modal hidden" id="refund-form-modal">
+    <p class="form-content mb-4">Select the reason for requesting a refund</p>
+    
+    <!-- Refund Form -->
+    <form id="refund-form" method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="refund_reason" value="Received a damaged product" required>
+                    Received a damaged product
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="refund_reason" value="Received the wrong item" required>
+                    Received the wrong item
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="refund_reason" value="Product quality issues" required>
+                    Product quality issues
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="refund_reason" value="Changed my mind after receiving" required>
+                    Changed my mind after receiving
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="refund_reason" value="Other" required>
+                    Other
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="refund-details">Additional Details (Optional)</label>
+            <textarea id="refund-details" name="refund_details" rows="4" placeholder="Provide more information about your refund request"></textarea>
+        </div>
+        
+        <div class="form-btns">
+            <button type="button" class="form-btn" id="refund-close-btn">Close</button>
+            <button type="submit" class="form-btn" id="refund-form-btn">Submit</button>
+        </div>
+    </form>
+</div>

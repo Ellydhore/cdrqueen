@@ -1,0 +1,120 @@
+.form-row {
+    display: flex;
+    gap: 1rem; /* Space between fields */
+    flex-wrap: wrap; /* Allows wrapping if necessary */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Allows equal width for all inputs */
+    min-width: 120px; /* Adjust as needed */
+    margin-bottom: 0.8rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.form-btn {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    background: #FFF500;
+    padding: 0.3rem 1.4rem;
+    border: 3px solid black;
+    box-shadow: 0 0 0 black;
+    transition: all 0.2s;
+}
+
+.form-content {
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.warn {
+    color: #fff;
+    background: #F1302E;
+}
+
+.form-btn:last-child {
+    margin: 0;
+}
+
+.form-btn:hover {
+    box-shadow: 0.4rem 0.4rem 0 black;
+    transform: translate(-0.4rem, -0.4rem);
+}
+
+.form-btn:active {
+    box-shadow: 0 0 0 black;
+    transform: translate(0, 0);
+}
+
+.hidden {
+    display: none;
+}
+
+.overlay-modal.show {
+    display: block;
+}
+
+.show {
+    animation: slideInFromTop 0.5s ease-out forwards;
+}
+
+@keyframes slideInFromTop {
+    0% {
+        top: -100%; /* Off-screen top */
+    }
+    100% {
+        top: 50%; /* Centered */
+    }
+}
+
+.radio-group input[type="radio"] {
+    /* Hide the default radio button appearance */
+    appearance: none; /* Modern browsers */
+    -webkit-appearance: none; /* Safari/Chrome */
+    -moz-appearance: none; /* Firefox */
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 0.5rem;
+    border: 2px solid #333; /* Darker border */
+    border-radius: 50%; /* Circular appearance */
+    background-color: white; /* Background color */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Add hover effect for better interactivity */
+.radio-group input[type="radio"]:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a custom indicator for checked state */
+.radio-group input[type="radio"]:checked {
+    background-color: #563CBA; /* Fill color when selected */
+    border-color: #555; /* Slightly darker border for contrast */
+}
+
+/* Style the label */
+.radio-group label {
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+}

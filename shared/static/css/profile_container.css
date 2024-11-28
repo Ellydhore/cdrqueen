@@ -1,4 +1,3 @@
-/* Container */
 .profile-container {
     width: 90%;
     height: 750px;
@@ -38,7 +37,7 @@
 }
 
 .navigation-list li {
-    font-size: 1rem; /* Adjust to match the text size */
+    font-size: 1rem;
     color: #FFF;
 }
 

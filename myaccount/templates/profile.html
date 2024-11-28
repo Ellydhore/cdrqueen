@@ -1,20 +1,126 @@
 {% extends 'profile_container.html' %}
-{% load static %}
 
+{% load static %}
+{% block css_block %}
+    <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
 {% block title %}Profile{% endblock %}
 
 {% block page_name %}My Account{% endblock %}
 {% block subpage_name %}Profile{% endblock %}
 
-
 {% block profile_contents %}
-<div class="flex flex-wrap items-center justify-between">
-    <!-- Individual item container -->
-    <div class="">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <!-- Left side -->
+    <div class="profile-left">
+        <!-- Profile Image -->
+        <div class="profile-pic">
+            <label class="profile-pic-label" for="id_image">
+                <span class="glyphicon glyphicon-camera"></span>
+                <span>Change Image</span>
+            </label>
+            <input id="id_image" type="file" name="image" onchange="loadFile(event)" />
+            {% if user.image %}
+                <img src="{{ user.image.url }}" alt="Profile Picture">
+            {% else %}
+                <img src="https://via.placeholder.com/200" alt="Profile Picture">
+            {% endif %}
+        </div>
+
+        <!-- First and Last Name -->
+        <div class="flex my-6">
+            <div class="flex-1 mr-2">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" value="{{ user.first_name|default_if_none:'' }}" placeholder="First Name" class="input-field">
+            </div>
+            <div class="flex-1 ml-2">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" value="{{ user.last_name|default_if_none:'' }}" placeholder="Last Name" class="input-field">
+            </div>
+        </div>
+
+        <!-- Email Address -->
+        <div class="mb-6">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" value="{{ user.email|default_if_none:'' }}" placeholder="Email Address" class="input-field">
+        </div>
+
+        <!-- Username -->
+        <div class="mb-6">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="{{ user.username|default_if_none:'' }}" placeholder="Username" class="input-field">
+        </div>
     </div>
 
-    <!-- Total section container -->
-    <div class="">
+    <!-- Right side -->
+    <div class="profile-right">
+        <!-- Phone Number -->
+        <div class="mb-6">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone_number" value="{{ user.phone_number|default_if_none:'' }}" placeholder="+63XXXXXXXXXX" class="input-field">
+        </div>
+
+        <!-- Gender -->
+        <div class="flex mb-6">
+            <div class="mr-2">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" class="input-field">
+                    <option value="" {% if not user.gender %}selected{% endif %}>Select Gender</option>
+                    <option value="M" {% if user.gender == 'M' %}selected{% endif %}>Male</option>
+                    <option value="F" {% if user.gender == 'F' %}selected{% endif %}>Female</option>
+                    <option value="O" {% if user.gender == 'O' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+
+            <!-- Date of Birth -->
+                <div class="ml-2">
+                    <label for="date_of_birth">Date of Birth</label>
+                    <input type="date" id="date_of_birth" name="date_of_birth" value="{{ user.date_of_birth|date:'Y-m-d' }}" class="input-field">
+                </div>
+        </div>
+
+        <!-- Save Button -->
+        <div class="button-container">
+            <button type="button" id="save-button" class="submit-button">
+                Save Changes
+            </button>
+        </div>
+
+        <!-- Modal Structure -->
+        <div class="modal hidden" id="confirmation-modal">
+            <p class="message">Confirm Changes?</p>
+            <div class="options">
+                <button type="sumbit" class="btn" id="yes-button">Yes</button>
+                <button type="button" class="btn" id="no-button">No</button>
+            </div>
+        </div>
     </div>
-</div>
+</form>
+{% endblock %}
+
+{% block js_block %}
+<script>
+    const saveButton = document.getElementById('save-button');
+    const modal = document.getElementById('confirmation-modal');
+    const yesButton = document.getElementById('yes-button');
+    const noButton = document.getElementById('no-button');
+
+    // Function to show the modal
+    saveButton.addEventListener('click', () => {
+        modal.classList.remove('hidden'); // Show the modal
+    });
+
+    // Function to handle the 'Yes' button
+    yesButton.addEventListener('click', () => {
+        // Handle the action for 'Yes', e.g., save changes
+        modal.classList.add('hidden'); // Close the modal
+    });
+
+    // Function to handle the 'No' button
+    noButton.addEventListener('click', () => {
+        modal.classList.add('hidden'); // Close the modal
+    });
+</script>
 {% endblock %}

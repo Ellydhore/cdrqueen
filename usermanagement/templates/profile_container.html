@@ -1,11 +1,6 @@
 {% extends 'base_nav.html' %}
 {% load static %}
 
-{% block css_block %}
-    <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
-    <link rel="stylesheet" href="{% static 'css/to_recieve.css' %}">
-{% endblock %}
-
 {% block content %}
 <!-- Main -->
 <main>
@@ -16,18 +11,20 @@
         <div class="list-container">
             <h2 class="select-none">My Account</h2>
             <ul class="navigation-list">
-                <li><i class="bx bx-user-circle bx-sm icon-links"></i><a href="#">Profile</a></li>
-                <li><i class="bx bx-map bx-sm icon-links"></i><a href="#">Address</a></li>
-                <li><i class="bx bx-credit-card bx-sm icon-links"></i><a href="#">Bank and Cards</a></li>
+                <li><i class="bx bx-user-circle bx-sm icon-links"></i><a href="{% url 'profile' %}">Profile</a></li>
+                <li><i class="bx bx-map bx-sm icon-links"></i><a href="{% url 'address' %}">Address</a></li>
+                <li><i class="bx bx-credit-card bx-sm icon-links"></i><a href="{% url 'bank_and_cards' %}">Bank and Cards</a></li>
             </ul>
         </div>
         <div class="list-container">
             <h2 class="select-none">My Purchases</h2>
             <ul class="navigation-list">
-                <li><i class="bx bx-receipt bx-sm icon-links"></i><a href="#">To Receive</a></li>
-                <li><i class="bx bx-task bx-sm icon-links"></i><a href="#">Completed</a></li>
-                <li><i class="bx bx-task-x bx-sm icon-links"></i><a href="#">Cancelled</a></li>
-                <li><i class="bx bx-refresh bx-sm icon-links"></i><a href="#">Return/Refund</a></li>
+                <li><i class="bx bx-wallet bx-sm icon-links"></i><a href="#">To Pay</a></li>
+                <li><i class="bx bx-category bx-sm icon-links"></i><a href="{% url 'all_purchases' %}">All Purchases</a></li>
+                <li><i class="bx bx-receipt bx-sm icon-links"></i><a href="{% url 'to_recieve' %}">To Receive</a></li>
+                <li><i class="bx bx-task bx-sm icon-links"></i><a href="{% url 'completed' %}">Completed</a></li>
+                <li><i class="bx bx-task-x bx-sm icon-links"></i><a href="{% url 'cancelled' %}">Cancelled</a></li>
+                <li><i class="bx bx-refresh bx-sm icon-links"></i><a href="{% url 'return_refund' %}">Return/Refund</a></li>
             </ul>
         </div>
         <div class="list-container"><h2><a href="#">My Cart</a></h2></div>
@@ -57,5 +54,3 @@
 <!-- End Main -->   
 {% endblock %}
 
-{% block js_block %}
-{% endblock %}

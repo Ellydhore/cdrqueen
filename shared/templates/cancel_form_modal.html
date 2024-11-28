@@ -1,0 +1,46 @@
+<div class="cancel-form-modal hidden" id="cancel-form-modal">
+    <p class="form-content mb-4">Select reason for canceling your order</p>
+    
+    <!-- Cancel Form -->
+    <form id="cancel-form" method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="cancel_reason" value="Found a better price elsewhere" required>
+                    Found a better price elsewhere
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="cancel_reason" value="Order delayed too long" required>
+                    Order delayed too long
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="cancel_reason" value="Changed my mind about the purchase" required>
+                    Changed my mind about the purchase
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="cancel_reason" value="Product was not as expected" required>
+                    Product was not as expected
+                </label>
+            </div>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="cancel_reason" value="Placed the order by mistake" required>
+                    Placed the order by mistake
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-btns">
+            <button type="button" class="form-btn" id="cancel-close-btn">Close</button>
+            <button type="submit" class="form-btn" id="cancel-form-btn">Submit</button>
+        </div>
+    </form>
+</div>

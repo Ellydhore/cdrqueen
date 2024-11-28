@@ -24,7 +24,7 @@
 </head>
 <body class="bg">
 <!-- Header -->
-    <header class="navbar-bg z-30">
+    <header class="navbar-bg">
         <nav>
             <div class="max-w-screen-l flex flex-wrap items-center justify-between mx-6 p-4">
                 <a href="{% url 'home' %}" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -33,45 +33,46 @@
             <ul class="flex space-x-6">
                 <li><a href="{% url 'home' %}" class="header-navbar-links">HOME</a></li>
             <!-- COMPONENTS DROP DOWN -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-links">COMPONENTS 
-                        <i class="bx bx-chevron-down bx-sm icon-links"></i>
-                    </a>
-                    <ul class="dropdown-content">
-                        <a href="#">CPU</a>
-                        <a href="#">GRAPHICS CARD</a>
-                        <a href="#">MOTHERBOARD</a>
-                        <a href="#">RAM</a>
-                        <a href="#">STORAGE</a>
-                        <a href="#">POWER SUPPLY UNIT</a>
-                        <a href="#">CASE</a>
-                        <a href="#">COOLING SOLUTION</a>
-                        <a href="#">RGB LIGHTING</a>
-                    </ul>
-                </li>
-            <!-- GAMING GEAARS DROP DOWN --> 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-links">GAMING GEARS 
-                        <i class="bx bx-chevron-down bx-sm icon-links"></i>
-                    </a>
-                    <ul class="dropdown-content">
-                        <li><a href="#">MOUSE</a></li>
-                        <li><a href="#">KEYBOARD</a></li>
-                        <li><a href="#">CAMERA</a></li>
-                        <li><a href="#">HEADSET</a></li>
-                        <li><a href="#">EAR PHONES</a></li>
-                        <li><a href="#">MICROPHONE</a></li>
-                        <li><a href="#">CONTROLLER</a></li>
-                    </ul>
-                </li>
+            <li class="dropdown-category">
+                <a href="#">COMPONENTS 
+                    <i class="bx bx-chevron-down bx-sm icon-links"></i>
+                </a>
+                <ul class="dropdown-content">
+                    <li><a href="{% url 'product_catalog' %}?query=cpu">CPU</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=graphics%20card">GRAPHICS CARD</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=motherboard">MOTHERBOARD</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=ram">RAM</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=storage">STORAGE</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=power%20supply%20unit">POWER SUPPLY UNIT</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=case">CASE</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=cooling%20solution">COOLING SOLUTION</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=rgb%20lighting">RGB LIGHTING</a></li>
+                </ul>
+            </li>
 
-                <li><a href="#" class="header-navbar-links">MONITORS</a></li>
-                <li><a href="#" class="header-navbar-links">PRE-BUILD GAMING PC</a></li>
+            <!-- GAMING GEARS DROP DOWN --> 
+            <li class="dropdown-category">
+                <a href="#">GAMING GEARS 
+                    <i class="bx bx-chevron-down bx-sm icon-links"></i>
+                </a>
+                <ul class="dropdown-content">
+                    <li><a href="{% url 'product_catalog' %}?query=mouse">MOUSE</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=keyboard">KEYBOARD</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=camera">CAMERA</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=headset">HEADSET</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=ear%20phones">EAR PHONES</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=microphone">MICROPHONE</a></li>
+                    <li><a href="{% url 'product_catalog' %}?query=controller">CONTROLLER</a></li>
+                </ul>
+            </li>
+
+                <li><a href="{% url 'product_catalog' %}?query=monitor" class="header-navbar-links">MONITORS</a></li>
+                <li><a href="{% url 'product_catalog' %}?query=pre-build%20gaming%20pc" class="header-navbar-links">PRE-BUILD GAMING PC</a></li>
             </ul>
             <ul class="flex space-x-4 relative">
-                <li class="dropdown">
+                <li class="dropdown-search">
                     <i class="bx bx-search-alt bx-tada-hover bx-sm icon-links"></i>
-                    <div class="search-dropdown">
+                    <div class="search-box">
                         <form>
                             <input type="text" class="search-input" placeholder="Search.." name="search">
                             <button type="submit">Go</button>
@@ -82,13 +83,25 @@
                 <!-- Check if the user is logged in -->
 
                 {% if request.user.is_authenticated %}
-                    <li><i class="bx bx-user bx-tada-hover bx-sm icon-links"></i></li>
-                    <li><i class="bx bx-cart bx-tada-hover bx-sm icon-links"></i></li>
+
+                    <li class="dropdown-profile">
+                        <i class="bx bx-user bx-tada-hover bx-sm icon-links"></i>
+                        <ul class="profile-links">
+                            <li><a href="{% url 'profile' %}">My Account</a></li>
+                            <li><a href="{% url 'all_purchases' %}">My Purchases</a></li>
+                        </ul>
+                    </li>
+                    <!-- Shopping cart -->
+                    <li>
+                        <a href="{% url 'shopping_cart' %}">
+                            <i class="bx bx-cart bx-tada-hover bx-sm icon-links"></i>
+                        </a>
+                    </li>
                     <!-- Logout Form -->
                     <li>
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button type="submit" class="header-navbar-links">
+                            <button type="submit">
                                 <i class="bx bx-exit bx-fade-right-hover bx-sm icon-links"></i>
                             </button>
                         </form>

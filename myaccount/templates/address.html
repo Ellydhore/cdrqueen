@@ -4,6 +4,13 @@
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
     <link rel="stylesheet" href="{% static 'css/address.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/address_form_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_address_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bank_form_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card_form_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/confirmation_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/message_modal.css' %}">
 {% endblock %}
 
 {% block title %}Address{% endblock %}
@@ -21,6 +28,7 @@
 
 {% for address in addresses %}
 <div class="address-container flex mb-5">
+    <input type="hidden" class="address-id" data-id="{{ address.id }}">
     <!-- First Column -->
     <div class="flex-none w-4/5 p-3">
         <div class="">
@@ -40,8 +48,11 @@
     <div class="flex-none w-1/5 p-4">
         <div>
             <div class="flex flex-row items-center justify-between p-2">
-                <button class="edit-btn" data-id="{{ address.id }}">Edit</button>
-                <button class="delete-btn">Delete</button>
+                <button 
+                    id="edit-address-btn-{{ address.id }}">
+                    Edit
+                </button>
+                <button id="delete-address-btn-{{ address.id }}" class="delete-address-btn">Delete</button>
             </div>
             <div class="flex items-center justify-center p-2">
                 <button class="set-btn">Set as default</button>
@@ -50,106 +61,48 @@
     </div>
 </div>
 {% endfor %}
-<div class="overlay hidden" id="modal-overlay"></div>
-<!-- Modal Structure -->
-<div class="modal hidden" enctype="multipart/form-data" id="add-address-modal">
-    <p class="message mb-4">Add Address</p>
+<!-- Feedback Modal -->
+<div class="overlay-modal hidden" id="modal-overlay"></div>
+{% include 'address_form_modal.html' %}
+{% include 'edit_address_modal.html' %}
 
-    <!-- Address Form -->
-    <form id="add-address-form" method="POST" action="{% url 'add_address' %}">
-        {% csrf_token %}
-        <div class="form-row">
-            <div class="form-group">
-                <input type="text" id="phone-number" name="phone_number" placeholder="+63XXXXXXXXXX" required>
-            </div>
-            <div class="form-group">
-                <select id="address-label" name="address_label" required>
-                    <option value="home">Home</option>
-                    <option value="work">Work</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <select id="address-type" name="address_type" required>
-                    <option value="default">Default</option>
-                    <option value="pickup_address">Pickup Address</option>
-                    <option value="return_address">Return Address</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="text" id="street" name="street" placeholder="Street Name" required>
-        </div>
-
-        <!-- Grouped Fields -->
-        <div class="form-row">
-            <div class="form-group">
-                <input type="text" id="barangay" name="barangay" placeholder="Barangay" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="city" name="city" placeholder="City" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="province" name="province" placeholder="Province" required>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group">
-                <input type="text" id="region" name="region" placeholder="Region" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="country" name="country" placeholder="Country" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="postal-code" name="postal_code" placeholder="Postal Code" required>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <textarea id="specific-location" name="specific_location" placeholder="Describe specific location"></textarea>
-        </div>
-
-        <div class="options">
-            <button type="button" class="btn" id="cancel-btn">Cancel</button>
-            <button type="submit" class="btn" id="save-btn">Save Address</button>
-        </div>
-    </form>
-</div>
 {% endblock %}
 
 {% block js_block %}
 <script>
-    const addButton = document.getElementById('add-address-btn');
-    const modal = document.getElementById('add-address-modal');
-    const overlay = document.getElementById('modal-overlay');
-    const saveButton = document.getElementById('save-btn');
-    const cancelButton = document.getElementById('cancel-btn');
-    const form = document.getElementById('add-address-form');
+    //Add Address
+    document.addEventListener("DOMContentLoaded", function () {
+        const addAddressBtn = document.getElementById("add-address-btn");
+        const cancelAddBtn = document.getElementById("cancel-add-btn");
+        const modalOverlay = document.getElementById("modal-overlay");
+        const addressFormModal = document.getElementById("address-form-modal");
+        const form = document.getElementById("address-form");
+        // Function to show the modal
+        function showModal() {
+            modalOverlay.classList.remove("hidden");
 
-    // Function to show the modal and overlay
-    addButton.addEventListener('click', () => {
-        overlay.classList.add('show'); // Show the overlay
-        modal.classList.remove('hidden'); // Show the modal
+            addressFormModal.classList.remove("hidden");
+            addressFormModal.classList.add("show");
+        }
+
+        // Function to hide the modal
+        function hideModal() {
+            modalOverlay.classList.remove("show");
+            modalOverlay.classList.add("hidden");
+
+            addressFormModal.classList.remove("show");
+            addressFormModal.classList.add("hidden");
+            form.reset();
+        }
+
+        // Event listener for the "Add Address" button
+        addAddressBtn.addEventListener("click", showModal);
+
+        // Event listener for the "Cancel" button
+        cancelAddBtn.addEventListener("click", hideModal);
+
+        // Optional: Close modal when clicking outside the form (on the overlay)
+        modalOverlay.addEventListener("click", hideModal);
     });
-
-    // Function to handle the 'Save' button and submit the form
-    saveButton.addEventListener('click', () => {
-        form.submit(); // Submit the form
-        modal.classList.add('hidden'); // Hide the modal
-        overlay.classList.remove('show'); // Hide the overlay
-    });
-
-    // Function to handle the 'Cancel' button
-    cancelButton.addEventListener('click', () => {
-        modal.classList.add('hidden'); // Hide the modal
-        overlay.classList.remove('show'); // Hide the overlay
-    });
-
-    // Optional: Close the modal and overlay when clicking on the overlay
-    overlay.addEventListener('click', () => {
-        modal.classList.add('hidden');
-        overlay.classList.remove('show');
-    });
-
 </script>
 {% endblock %}
