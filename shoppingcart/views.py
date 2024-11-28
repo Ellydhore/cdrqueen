@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from usermanagement.models import ShoppingCart, CartItem
 
@@ -20,3 +20,14 @@ def shopping_cart(request):
         'cart_items': cart_items,
         'total_price': total_price,
     })
+
+@login_required
+def remove_from_cart(request, cart_item_id):
+    # Retrieve the cart item and ensure it belongs to the logged-in user's cart
+    cart_item = get_object_or_404(CartItem, id=cart_item_id, cart__user=request.user)
+
+    # Delete the cart item
+    cart_item.delete()
+
+    # Redirect to the shopping cart page
+    return redirect('shopping_cart')

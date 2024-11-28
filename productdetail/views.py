@@ -1,15 +1,18 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from usermanagement.models import CartItem, ShoppingCart
 from productmanagement.models import Product
-from django.shortcuts import render, get_object_or_404, redirect
-
 
 @login_required
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+    return render(request, 'productdetail.html', {'product': product})
 
+@login_required
+def add_to_cart(request, product_id):
     if request.method == 'POST':
+        product = get_object_or_404(Product, id=product_id)
+
         # Get the current user's shopping cart
         cart, created = ShoppingCart.objects.get_or_create(user=request.user)
 
@@ -31,7 +34,7 @@ def product_detail(request, product_id):
             existing_item.save()
         else:
             # Create a new CartItem
-            cart_item = CartItem.objects.create(
+            CartItem.objects.create(
                 cart=cart,
                 product=product,
                 quantity=quantity,
@@ -40,5 +43,3 @@ def product_detail(request, product_id):
 
         # Redirect to the shopping cart or product detail page
         return redirect('shopping_cart')  # Adjust redirect as necessary
-
-    return render(request, 'productdetail.html', {'product': product})

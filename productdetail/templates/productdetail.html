@@ -79,17 +79,23 @@
           </div>
         </div>
 
-        <!-- Quantity Selector -->
-        <div class="mt-4 flex items-center">
-          <label for="quantity" class="text-sm font-medium text-gray-700 mr-3">Quantity</label>
-          <div class="flex items-center">
-            <button type="button" onclick="decrementQuantity()" class="px-2 py-1 border border-gray-300 text-gray-600 hover:bg-gray-100">-</button>
-            <input type="text" id="quantity" name="quantity" min="1" value="1" class="w-12 mx-2 text-center border-gray-300 rounded-md" oninput="validateQuantity()" />
-            <button type="button" onclick="incrementQuantity()" class="px-2 py-1 border border-gray-300 text-gray-600 hover:bg-gray-100">+</button>
+        <div class="mt-4 flex items-center space-x-2">
+          <label for="quantity" class="text-sm font-medium text-gray-700">
+            Quantity
+          </label>
+          <div class="relative">
+            <select id="quantity" name="quantity" class="w-16 px-2 py-1 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
           </div>
         </div>
+        
 
-        <form class="mt-10" method="POST" action="{% url 'product_detail' product.id %}">
+        <form class="mt-10" method="POST" action="{% url 'add_to_cart' product.id %}">
           {% csrf_token %}
           <input type="hidden" name="product_id" value="{{ product.id }}">
           <input type="hidden" name="quantity" id="hidden_quantity" value="1">
