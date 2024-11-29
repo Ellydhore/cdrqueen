@@ -52,7 +52,14 @@
                     id="edit-address-btn-{{ address.id }}">
                     Edit
                 </button>
-                <button id="delete-address-btn-{{ address.id }}" class="delete-address-btn">Delete</button>
+                <button 
+                    id="delete-address-btn-{{ address.id }}" 
+                    class="delete-address-btn" 
+                    data-id="{{ address.id }}" 
+                    data-street="{{ address.street }}" 
+                    data-barangay="{{ address.barangay }}">
+                    Delete {{ address.id }}
+                </button>
             </div>
             <div class="flex items-center justify-center p-2">
                 <button class="set-btn">Set as default</button>
@@ -65,44 +72,91 @@
 <div class="overlay-modal hidden" id="modal-overlay"></div>
 {% include 'address_form_modal.html' %}
 {% include 'edit_address_modal.html' %}
+{% include 'confirmation_modal.html' %}
 
 {% endblock %}
 
 {% block js_block %}
 <script>
-    //Add Address
-    document.addEventListener("DOMContentLoaded", function () {
-        const addAddressBtn = document.getElementById("add-address-btn");
-        const cancelAddBtn = document.getElementById("cancel-add-btn");
-        const modalOverlay = document.getElementById("modal-overlay");
-        const addressFormModal = document.getElementById("address-form-modal");
-        const form = document.getElementById("address-form");
-        // Function to show the modal
-        function showModal() {
-            modalOverlay.classList.remove("hidden");
+    document.addEventListener('DOMContentLoaded', () => {
+        //
+        //
+        // Add address
+        const addAddressButton = document.getElementById('add-address-btn');
+        const cancelAddAddressButton = document.getElementById('cancel-add-btn');
+        const addAddressmodal = document.getElementById('address-form-modal');
+        const addAddressForm = document.getElementById('address-form');
+        const addAddressOverlay = document.getElementById('modal-overlay');
 
-            addressFormModal.classList.remove("hidden");
-            addressFormModal.classList.add("show");
-        }
+        addAddressButton.addEventListener('click', () => {
+            addAddressmodal.classList.remove('hidden');
+            addAddressOverlay.classList.remove('hidden');
+            addAddressmodal.classList.add('show');
+        });
 
-        // Function to hide the modal
-        function hideModal() {
-            modalOverlay.classList.remove("show");
-            modalOverlay.classList.add("hidden");
+        cancelAddAddressButton.addEventListener('click', () => {
+            addAddressmodal.classList.add('hidden');
+            addAddressOverlay.classList.add('hidden');
+            addAddressmodal.classList.remove('show');
+            addAddressForm.reset();
+        });
 
-            addressFormModal.classList.remove("show");
-            addressFormModal.classList.add("hidden");
+        addAddressOverlay.addEventListener('click', () => {
+            addAddressmodal.classList.add('hidden');
+            addAddressOverlay.classList.add('hidden');
+            addAddressmodal.classList.remove('show');
+            addAddressForm.reset();
+        });
+        //
+        //
+        // Delete Address
+        const deleteButtons = document.querySelectorAll('.delete-address-btn');
+        const deleteAddressmodal = document.getElementById('confirmation-modal');
+        const deleteAddressMessage = document.getElementById('confirmation-message');
+        const cancelDeleteAddress = document.getElementById('cancel-confirmation-btn');
+        const confirmDeleteAddress = document.getElementById('confirm-confirmation-btn');
+        const deleteAddressOverlay = document.getElementById('modal-overlay');
+        const confirmationForm = document.getElementById('confirmation-form');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const addressId = button.dataset.id;
+                const street = button.dataset.street;
+                const barangay = button.dataset.barangay;
+
+                deleteAddressMessage.textContent = "Delete Address?";
+                cancelDeleteAddress.textContent = "Cancel";
+                confirmDeleteAddress.textContent = "Delete Address";
+
+                document.getElementById('confirmation-key').value = addressId;
+                confirmationForm.action = `/my_account/delete_address/${addressId}/`;
+                deleteAddressmodal.classList.remove('hidden');
+                deleteAddressmodal.classList.add('show');
+                confirmDeleteAddress.classList.add('warning');
+                deleteAddressOverlay.classList.remove('hidden');
+            });
+        });
+
+        confirmDeleteAddress.addEventListener('click', () => {
+            deleteAddressmodal.classList.add('hidden');
+            deleteAddressmodal.classList.remove('show');
+            deleteAddressOverlay.classList.add('hidden');
             form.reset();
-        }
+        });
 
-        // Event listener for the "Add Address" button
-        addAddressBtn.addEventListener("click", showModal);
+        cancelDeleteAddress.addEventListener('click', () => {
+            deleteAddressmodal.classList.add('hidden');
+            deleteAddressmodal.classList.remove('show');
+            deleteAddressOverlay.classList.add('hidden');
+            form.reset();
+        });
 
-        // Event listener for the "Cancel" button
-        cancelAddBtn.addEventListener("click", hideModal);
-
-        // Optional: Close modal when clicking outside the form (on the overlay)
-        modalOverlay.addEventListener("click", hideModal);
+        deleteAddressOverlay.addEventListener('click', () => {
+            deleteAddressmodal.classList.add('hidden');
+            deleteAddressOverlay.classList.add('hidden');
+            deleteAddressmodal.classList.remove('show');
+            form.reset();
+        });
     });
 </script>
 {% endblock %}

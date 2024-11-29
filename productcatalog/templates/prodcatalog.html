@@ -37,21 +37,22 @@
 </div>
 
 <!-- Trending Section -->
-<div class="relative text-center pt-8 pb-32">
+<div class="relative text-center pt-2 pb-32">
     <h1 class="text-9xl font-semibold mb-32 text-white z-1001 relative pt-12 pb-12">
         Trending
         <span class="absolute left-0 right-0 top-0 border-t-8 border-yellow-200 border-opacity-100 glow"></span>
-        <span class="absolute left-0 right-0 bottom-0 border-b-8 border-yellow-200 border-opacity-100 glow"></span>
     </h1>   
 
-    <img src="../../static/images/platform.png" class="absolute bottom-44 top-96 w-full object-cover z-0 bg-image-adjust" alt="Background Platform Image">
+    <img src="../../static/images/platform.png" 
+     class="absolute w-full object-fit z-0 bg-image-adjust" 
+     alt="Background Platform Image">
     
     <!-- Trending Product Carousel -->
-    <div class="flex justify-center p-5 space-x-6 overflow-x-auto gap-x-6 z-1001 relative">
+    <div class="flex justify-center bottom-20 p-5 space-x-6 overflow-x-auto gap-x-2 z-1001 relative">
         {% for product in trending_products %}
-            <a href="{% url 'product_detail' product.id %}" class="carousel-item bg-white rounded-lg shadow-lg p-6 w-64 h-auto transform transition-transform duration-300 hover:scale-105">
+            <a href="{% url 'product_detail' product.id %}" class="carousel-item shadow-xl bg-white rounded-lg shadow-lg p-6 w-60 h-auto transform transition-transform duration-300 hover:scale-105">
                 {% with product.images.first as image %}
-                    <img src="{{ image.image_url_1 }}" alt="{{ product.name }}" class="h-48 w-full object-cover mb-4 rounded-lg">
+                    <img src="{{ image.image_url_1 }}" alt="{{ product.name }}" class="h-40 w-full object-cover mb-4 rounded-lg">
                 {% endwith %}
                 <h3 class="text-lg font-semibold text-left">{{ product.name }}</h3>
                 <p class="text-gray-800 text-lg text-left">₱{{ product.price }}</p>

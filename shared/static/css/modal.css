@@ -45,7 +45,12 @@
     margin-top: 0;
 }
 
-.warn {
+.warning {
+    color: #fff;
+    background: #F1302E;
+}
+
+#confirm-confirmation-btn.warning {
     color: #fff;
     background: #F1302E;
 }

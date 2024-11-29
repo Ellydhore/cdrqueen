@@ -1,8 +1,11 @@
 <div class="confirmation-modal hidden" id="confirmation-modal">
-    <p class="confirmation-content mb-4">Your message here</p>
-
-    <div class="confirmation-btns">
-        <button type="button" class="confirmation-btn" id="confirmation-btn">Action Text</button>
-        <button type="button" class="confirmation-btn" id="confirmation-btn">Action Text</button>
-    </div>
+    <p class="confirmation-content mb-4" id="confirmation-message">Your message here</p>
+    <form method="POST" id="confirmation-form">
+        {% csrf_token %}
+        <input type="hidden" id="confirmation-key">
+        <div class="confirmation-btns">
+            <button type="button" class="confirmation-btn" id="cancel-confirmation-btn">Action Text</button>
+            <button type="submit" class="confirmation-btn" id="confirm-confirmation-btn">Action Text</button>
+        </div>
+    </form>
 </div>

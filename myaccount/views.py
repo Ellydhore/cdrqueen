@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse, HttpResponse
 from .forms import ProfileForm, AddressForm
 from usermanagement.models import Address
 
 # Profile
 @login_required
 def profile(request):  
-    formatted_phone_number = request.user.phone_number  # Initialize with the user's phone number
+    formatted_phone_number = request.user.phone_number
     
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=request.user)
@@ -33,38 +34,26 @@ def address(request):
 # Add Address
 @login_required
 def add_address(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
             address = form.save(commit=False)
             address.user = request.user
             address.save()
-            return redirect("address")
+            return redirect('address')
     else:
         form = AddressForm()
-
-    return render(request, "address.html", {"form": form})
+    return render(request, 'address.html', {'form': form})
+# 
 #
-#
-# Edit Address
-def edit_address(request, address_id):
-    # Fetch the address object
-    address = get_object_or_404(Address, id=address_id)
-
-    if request.method == 'POST':
-        # Use the data from the POST request to update the address
-        form = AddressForm(request.POST, instance=address)
-        
-        if form.is_valid():
-            form.save()  # Save the updated address to the database
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'errors': form.errors})
-
-    # If GET request, render the edit form (not used in this case, since we handle it via modal)
-    return render(request, 'address.html', {'address': address})
-#
-#
+# Delete Address
+@login_required
+def delete_address(request, address_id):
+    if request.method == "POST":
+        address = get_object_or_404(Address, id=address_id, user=request.user)
+        address.delete()
+        return redirect('address')  # Redirect back to the address list or a different page
+    return redirect('address')  # Fallback to address page if method is not POST
 # Bank
 def bank_and_cards(request):
     if not request.user.is_authenticated:
