@@ -30,7 +30,7 @@
 <div class="address-container flex mb-5">
     <input type="hidden" class="address-id" data-id="{{ address.id }}">
     <!-- First Column -->
-    <div class="flex-none w-4/5 p-3">
+    <div class="flex-none w-4/6 p-3">
         <div class="">
             <div class="p-2">
                 <p class="name-detail inline">{{ request.user.first_name }} {{ request.user.last_name }} | </p>
@@ -45,24 +45,25 @@
         </div>
     </div>
     <!-- Second Column -->
-    <div class="flex-none w-1/5 p-4">
+    <div class="flex-none w-2/6 p-4">
         <div>
-            <div class="flex flex-row items-center justify-between p-2">
-                <button 
-                    id="edit-address-btn-{{ address.id }}">
-                    Edit
-                </button>
+            <div class="flex flex-row items-center gap-5 p-2">
+                {% if address.address_type == 'default' %}
+                    <span class="default-label">Default Address</span>
+                {% else %}
+                    <form method="POST" action="{% url 'set_default_address' address.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="set-btn">Set as Default</button>
+                    </form>
+                {% endif %}
                 <button 
                     id="delete-address-btn-{{ address.id }}" 
-                    class="delete-address-btn" 
+                    class="delete-address-btn set-btn" 
                     data-id="{{ address.id }}" 
                     data-street="{{ address.street }}" 
                     data-barangay="{{ address.barangay }}">
-                    Delete {{ address.id }}
+                    Delete
                 </button>
-            </div>
-            <div class="flex items-center justify-center p-2">
-                <button class="set-btn">Set as default</button>
             </div>
         </div>
     </div>
@@ -129,7 +130,7 @@
                 confirmDeleteAddress.textContent = "Delete Address";
 
                 document.getElementById('confirmation-key').value = addressId;
-                confirmationForm.action = `/my_account/delete_address/${addressId}/`;
+                confirmationForm.action = `delete_address/${addressId}/`;
                 deleteAddressmodal.classList.remove('hidden');
                 deleteAddressmodal.classList.add('show');
                 confirmDeleteAddress.classList.add('warning');

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db import transaction
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -32,14 +33,20 @@ def address(request):
 #
 #
 # Add Address
-@login_required
 def add_address(request):
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
-            address = form.save(commit=False)
-            address.user = request.user
-            address.save()
+            with transaction.atomic():
+                address = form.save(commit=False)
+                address.user = request.user
+
+                # Check if the new address is set as default
+                if address.address_type == 'default':
+                    Address.objects.filter(user=request.user, address_type='default').update(address_type='pickup_address')
+                
+                address.save()
+
             return redirect('address')
     else:
         form = AddressForm()
@@ -52,8 +59,25 @@ def delete_address(request, address_id):
     if request.method == "POST":
         address = get_object_or_404(Address, id=address_id, user=request.user)
         address.delete()
-        return redirect('address')  # Redirect back to the address list or a different page
-    return redirect('address')  # Fallback to address page if method is not POST
+        return redirect('address')
+    return redirect('address')
+#
+#
+# Default Address
+@login_required
+def set_default_address(request, address_id):
+    if request.method == "POST":
+        address = get_object_or_404(Address, id=address_id, user=request.user)
+        Address.objects.filter(user=request.user, address_type='default').update(address_type='pickup_address')
+
+        address.address_type = 'default'
+        address.save()
+
+        return redirect('address')
+    else:
+        return redirect('address')
+#
+#
 # Bank
 def bank_and_cards(request):
     if not request.user.is_authenticated:

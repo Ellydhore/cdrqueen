@@ -95,6 +95,12 @@ class Address(models.Model):
     address_label = models.CharField(max_length=10, choices=ADDRESS_LABEL_CHOICES, default='Home')
     address_type = models.CharField(max_length=15, choices=ADDRESS_TYPE_CHOICES, default='Default')
 
+    def save(self, *args, **kwargs):
+            if self.address_type == 'default':
+                # Update other addresses for the user to 'pickup_address'
+                Address.objects.filter(user=self.user, address_type='default').exclude(id=self.id).update(address_type='pickup_address')
+            super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.get_address_label_display()} - {self.street}, {self.city}"
 
