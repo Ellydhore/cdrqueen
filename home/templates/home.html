@@ -69,7 +69,9 @@
 <div class="mx-6 grid grid-cols-2 md:grid-cols-4 gap-4">
     <div>
         <h2 class="our-fav">Check Out <br> Our Favorites</h2>    
-        <button class="custom-button">VIEW ALL</button>
+        <a href="{% url 'product_catalog' %}">
+            <button class="custom-button">VIEW ALL</button>
+        </a>
     </div>
 
     {% for product in top_rated_products %}
@@ -138,7 +140,9 @@
         </div>
     </div>
     
-    <button class="custom-button mx-auto">VIEW ALL</button>
+    <a href="{% url 'product_catalog' %}">
+        <button class="custom-button mx-auto">VIEW ALL</button>
+    </a>
 </div>
 <!-- End Best Sellers -->
 </main>

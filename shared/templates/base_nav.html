@@ -73,8 +73,8 @@
                 <li class="dropdown-search">
                     <i class="bx bx-search-alt bx-tada-hover bx-sm icon-links"></i>
                     <div class="search-box">
-                        <form>
-                            <input type="text" class="search-input" placeholder="Search.." name="search">
+                        <form action="{% url 'product_catalog' %}" method="get">
+                            <input type="text" class="search-input" placeholder="Search.." name="query" value="{{ query|default:'' }}">
                             <button type="submit">Go</button>
                         </form>
                     </div>

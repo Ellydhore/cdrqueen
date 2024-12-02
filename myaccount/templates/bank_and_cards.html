@@ -2,53 +2,138 @@
 {% load static %}
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
-    <link rel="stylesheet" href="{% static 'css/address.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bank_and_cards.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card_form_modal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/confirmation_modal.css' %}">
 {% endblock %}
 {% block title %}Banks and Cards{% endblock %}
 
 {% block page_name %}My Account{% endblock %}
-{% block subpage_name %}Banks and Cards{% endblock %}
+{% block subpage_name %}Cards{% endblock %}
 
+{% block add_button %}
+<div>
+    <button class="add-card-btn" id="add-card-btn">+ Add Card</button>
+</div>
+{% endblock %}
 
 {% block profile_contents %}
 
-<div class="address-container flex">
+{% for card in cards %}
+<div class="payment-container flex mb-5">
+    <input type="hidden" class="card-id" data-id="{{ card.id }}">
     <!-- First Column -->
-    <div class="flex-none w-4/5 p-3">
-        <div class="">
-            <div class="p-2">
-                <p class="name-detail inline">Full Name | </p><p class="address-details inline">(63+) 0912-345-6789</p>
-                <p class="address-details">Street name, Building, House No.</p>
-                <p class="address-details">Barangay, City, Province, Region, Postal Code</p>
-            </div>
-            <div class="p-2 select-none">
-                <div class="address-type">Default</div>
-                <div class="address-type">Pick Up Address</div>
-                <div class="address-type">Return Address</div>
+    <div class="flex-none w-5/6 p-3">
+        <div>
+            <div class="p-2 mb-4">
+                <p class="name-detail">Card Holder: {{ card.cardholder_name }}</p>
+                <p class="card-details">Card Number: **** **** **** {{ card.card_number|slice:"-4:" }}</p>
+                <p class="card-details">Expiry Date: {{ card.expiry_date }}</p>
             </div>
         </div>
     </div>
     <!-- Second Column -->
-    <div class="flex-none w-1/5 p-4">
+    <div class="flex-none w-1/6 p-4">
         <div>
-            <div class="flex flex-row items-center justify-between p-2">
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </div>
-            <div class="flex items-center justify-center p-2">
-                <button class="set-btn">Set as default</button>
+            <div class="flex flex-row p-2">
+                <button 
+                    class="delete-card-btn set-btn" 
+                    id="delete-card-btn"
+                    data-id="{{ card.id }}">
+                    Delete
+                </button>
             </div>
         </div>
     </div>
-
-    <!-- Modal Structure -->
-    <div class="modal hidden" id="confirmation-modal">
-            <p class="message">Confirm Changes?</p>
-            <div class="options">
-                <button class="btn" id="yes-button">Yes</button>
-                <button class="btn" id="no-button">No</button>
-            </div>
-    </div>
 </div>
+{% endfor %}
+<!-- Feedback Modal -->
+<div class="overlay-modal hidden" id="modal-overlay"></div>
+{% include 'card_form_modal.html' %}
+{% include 'confirmation_modal.html' %}
 
+{% endblock %}
+
+{% block js_block %}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        //
+        //
+        // Add address
+        const addCardButton = document.getElementById('add-card-btn');
+        const cancelAddCardButton = document.getElementById('cancel-card-btn');
+        const addCardmodal = document.getElementById('card-form-modal');
+        const addCardForm = document.getElementById('card-form');
+        const addCardOverlay = document.getElementById('modal-overlay');
+
+        addCardButton.addEventListener('click', () => {
+            addCardmodal.classList.remove('hidden');
+            addCardOverlay.classList.remove('hidden');
+            addCardmodal.classList.add('show');
+        });
+
+        cancelAddCardButton.addEventListener('click', () => {
+            addCardmodal.classList.add('hidden');
+            addCardOverlay.classList.add('hidden');
+            addCardmodal.classList.remove('show');
+            addCardForm.reset();
+        });
+
+        addCardOverlay.addEventListener('click', () => {
+            addCardmodal.classList.add('hidden');
+            addCardOverlay.classList.add('hidden');
+            addCardmodal.classList.remove('show');
+            addCardForm.reset();
+        });
+        //
+        //
+        // Delete Address
+        const deleteButtons = document.querySelectorAll('.delete-card-btn');
+        const deleteCardModal = document.getElementById('confirmation-modal');
+        const deleteCardMessage = document.getElementById('confirmation-message');
+        const cancelDeleteCard = document.getElementById('cancel-confirmation-btn');
+        const confirmDeleteCard = document.getElementById('confirm-confirmation-btn');
+        const deleteCardOverlay = document.getElementById('modal-overlay');
+        const confirmationForm = document.getElementById('confirmation-form');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const cardId = button.dataset.id;
+
+                deleteCardMessage.textContent = "Delete Card?";
+                cancelDeleteCard.textContent = "Cancel";
+                confirmDeleteCard.textContent = "Delete Card";
+
+                document.getElementById('confirmation-key').value = cardId;
+                confirmationForm.action = `delete_card/${cardId}/`;
+                deleteCardModal.classList.remove('hidden');
+                deleteCardModal.classList.add('show');
+                confirmDeleteCard.classList.add('warning');
+                deleteCardOverlay.classList.remove('hidden');
+            });
+        });
+
+        confirmDeleteCard.addEventListener('click', () => {
+            deleteCardModal.classList.add('hidden');
+            deleteCardModal.classList.remove('show');
+            deleteCardOverlay.classList.add('hidden');
+            form.reset();
+        });
+
+        cancelDeleteCard.addEventListener('click', () => {
+            deleteCardModal.classList.add('hidden');
+            deleteCardModal.classList.remove('show');
+            deleteCardOverlay.classList.add('hidden');
+            form.reset();
+        });
+
+        deleteCardOverlay.addEventListener('click', () => {
+            deleteCardModal.classList.add('hidden');
+            deleteCardOverlay.classList.add('hidden');
+            deleteCardModal.classList.remove('show');
+            form.reset();
+        });
+    });
+</script>
 {% endblock %}

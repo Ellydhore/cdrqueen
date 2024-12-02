@@ -6,11 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/address.css' %}">
     <link rel="stylesheet" href="{% static 'css/modal.css' %}">
     <link rel="stylesheet" href="{% static 'css/address_form_modal.css' %}">
-    <link rel="stylesheet" href="{% static 'css/edit_address_modal.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bank_form_modal.css' %}">
-    <link rel="stylesheet" href="{% static 'css/card_form_modal.css' %}">
     <link rel="stylesheet" href="{% static 'css/confirmation_modal.css' %}">
-    <link rel="stylesheet" href="{% static 'css/message_modal.css' %}">
 {% endblock %}
 
 {% block title %}Address{% endblock %}
@@ -31,7 +27,7 @@
     <input type="hidden" class="address-id" data-id="{{ address.id }}">
     <!-- First Column -->
     <div class="flex-none w-4/6 p-3">
-        <div class="">
+        <div>
             <div class="p-2">
                 <p class="name-detail inline">{{ request.user.first_name }} {{ request.user.last_name }} | </p>
                 <p class="address-details inline">{{ address.phone_number }}</p>
@@ -49,7 +45,7 @@
         <div>
             <div class="flex flex-row items-center gap-5 p-2">
                 {% if address.address_type == 'default' %}
-                    <span class="default-label">Default Address</span>
+                    <span class="set-btn default-label">Default Address</span>
                 {% else %}
                     <form method="POST" action="{% url 'set_default_address' address.id %}">
                         {% csrf_token %}

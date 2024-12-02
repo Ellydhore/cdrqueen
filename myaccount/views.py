@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
-from .forms import ProfileForm, AddressForm
-from usermanagement.models import Address
+from .forms import ProfileForm, AddressForm, CardForm
+from usermanagement.models import Address, Card
 
 # Profile
 @login_required
@@ -78,9 +78,36 @@ def set_default_address(request, address_id):
         return redirect('address')
 #
 #
-# Bank
-def bank_and_cards(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    return render(request, 'bank_and_cards.html')
+# card
+@login_required
+def user_cards(request):
+    cards = Card.objects.filter(user=request.user)
+    return render(request, 'bank_and_cards.html', {'cards': cards})
+#
+#
+# Add Card
+@login_required
+def add_card(request):
+    if request.method == 'POST':
+        form = CardForm(request.POST)
+        if form.is_valid():
+            with transaction.atomic():
+                card = form.save(commit=False)
+                card.user = request.user
+                card.save()
+            return redirect('user_cards')
+    else:
+        form = CardForm()
+    
+    return render(request, 'bank_and_cards.html', {'form': form})
+# 
+#
+# Delete Card
+@login_required
+def delete_card(request, card_id):
+    if request.method == "POST":
+        card = get_object_or_404(Card, id=card_id, user=request.user)
+        card.delete()
+        return redirect('user_cards')
+    return redirect('user_cards')
 

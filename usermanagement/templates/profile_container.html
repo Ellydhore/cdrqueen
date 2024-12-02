@@ -13,13 +13,13 @@
             <ul class="navigation-list">
                 <li><i class="bx bx-user-circle bx-sm icon-links"></i><a href="{% url 'profile' %}">Profile</a></li>
                 <li><i class="bx bx-map bx-sm icon-links"></i><a href="{% url 'address' %}">Address</a></li>
-                <li><i class="bx bx-credit-card bx-sm icon-links"></i><a href="{% url 'bank_and_cards' %}">Bank and Cards</a></li>
+                <li><i class="bx bx-credit-card bx-sm icon-links"></i><a href="{% url 'user_cards' %}">Cards</a></li>
             </ul>
         </div>
         <div class="list-container">
             <h2 class="select-none">My Purchases</h2>
             <ul class="navigation-list">
-                <li><i class="bx bx-wallet bx-sm icon-links"></i><a href="#">To Pay</a></li>
+                <li><i class="bx bx-wallet bx-sm icon-links"></i><a href="{% url 'checkout' %}">To Pay</a></li>
                 <li><i class="bx bx-category bx-sm icon-links"></i><a href="{% url 'all_purchases' %}">All Purchases</a></li>
                 <li><i class="bx bx-receipt bx-sm icon-links"></i><a href="{% url 'to_recieve' %}">To Receive</a></li>
                 <li><i class="bx bx-task bx-sm icon-links"></i><a href="{% url 'completed' %}">Completed</a></li>
@@ -27,7 +27,7 @@
                 <li><i class="bx bx-refresh bx-sm icon-links"></i><a href="{% url 'return_refund' %}">Return/Refund</a></li>
             </ul>
         </div>
-        <div class="list-container"><h2><a href="#">My Cart</a></h2></div>
+        <div class="list-container"><h2><a href="{% url 'shopping_cart' %}">My Cart</a></h2></div>
     </div>
 
     <!-- Profile Details (Right Panel) -->

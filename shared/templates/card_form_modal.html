@@ -1,19 +1,19 @@
 <div class="card-form-modal hidden" id="card-form-modal">
     <p class="form-content mb-4">Add Your Card Details</p>
     <!-- Card Form -->
-    <form id="card-form" method="POST">
+    <form id="card-form" method="POST" action="{% url 'add_card' %}">
         {% csrf_token %}
         <input type="hidden" id="edit-card-id" name="card_id">
         
         <div class="form-group">
-            <input type="text" id="card-number" name="card_number" placeholder="Card Number" maxlength="16" pattern="\d{16}" required>
+            <input type="text" id="card-number" name="card_number" placeholder="Card Number (16 Digits)" maxlength="16" pattern="\d{16}" required>
         </div>
     
         <div class="form-group">
             <input type="date" id="expiry-date" name="expiry_date" placeholder="" required>
         </div>
         <div class="form-group">
-            <input type="text" id="card-holder-name" name="card_holder_name" placeholder="Cardholder Name" required>
+            <input type="text" id="card-holder-name" name="cardholder_name" placeholder="Cardholder Name" required>
         </div>
         
         <div class="form-btns">

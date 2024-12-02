@@ -1,4 +1,4 @@
-.address-container {
+.payment-container {
     background-color: white;
 }
 
@@ -9,23 +9,13 @@
     font-size: 1rem;
 }
 
-.address-details {
+.card-details {
     color: #240E7A;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 0.8rem;
 }
 
-.address-type {
-    display: inline;
-    border: 2px solid #240E7A;
-    color: #240E7A;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.8rem;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.add-address-btn {
+.add-card-btn {
     background-color: white;
     color: #240E7A;
     font-size: 16px;
@@ -36,23 +26,10 @@
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.add-address-btn:hover {
+.add-card-btn:hover {
     background-color: #4C2DC5;
     color: white;
     border: 2px solid #4C2DC5;
-}
-
-.edit-btn {
-    color: #240E7A;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.2rem;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.edit-btn:hover {
-    background-color: #240E7A;
-    color: white;
 }
 
 .delete-btn {
@@ -82,4 +59,3 @@
     color: white;
     border: 2px solid #240E7A;
 }
-
