@@ -42,4 +42,4 @@ def add_to_cart(request, product_id):
             )
 
         # Redirect to the shopping cart or product detail page
-        return redirect('shopping_cart')  # Adjust redirect as necessary
+        return redirect('shopping_cart')  

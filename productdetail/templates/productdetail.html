@@ -14,15 +14,7 @@
       <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <li>
           <div class="flex items-center">
-            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Components</a>
-            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
-              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-            </svg>
-          </div>
-        </li>
-        <li>
-          <div class="flex items-center">
-            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Graphics Card</a>
+            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Product</a>
             <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
               <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
             </svg>
@@ -44,16 +36,6 @@
         </div>
       </div>
     </div>
-
-    <script>
-      function changeMainImage(imageElement) {
-        // Get the main image element in the center
-        const mainImage = document.getElementById('main-image');
-        
-        // Change the src of the main image to the clicked image's src
-        mainImage.src = imageElement.src;
-      }
-    </script>
 
     <!-- Product info -->
     <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -78,23 +60,7 @@
             </div>
           </div>
         </div>
-
-        <div class="mt-4 flex items-center space-x-2">
-          <label for="quantity" class="text-sm font-medium text-gray-700">
-            Quantity
-          </label>
-          <div class="relative">
-            <select id="quantity" name="quantity" class="w-16 px-2 py-1 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-        </div>
         
-
         <form class="mt-10" method="POST" action="{% url 'add_to_cart' product.id %}">
           {% csrf_token %}
           <input type="hidden" name="product_id" value="{{ product.id }}">
@@ -118,26 +84,4 @@
 {% endblock %}
 
 {% block js_block %}
-<script>
-  function incrementQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    quantityInput.value = Math.max(1, parseInt(quantityInput.value) + 1);
-  }
-
-  function decrementQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    const currentQuantity = parseInt(quantityInput.value);
-    if (currentQuantity > 1) {
-      quantityInput.value = currentQuantity - 1;
-    }
-  }
-
-  function validateQuantity() {
-    const quantityInput = document.getElementById('quantity');
-    quantityInput.value = quantityInput.value.replace(/[^0-9]/g, '');
-    if (quantityInput.value < 1) {
-      quantityInput.value = 1;
-    }
-  }
-</script>
 {% endblock %}
