@@ -28,7 +28,7 @@
                 <p class="text-sm text-gray-500 mt-1">{{ item.product.description|truncatewords:15 }}</p>
                 <div class="mt-2 flex items-center justify-between">
                   <span class="text-gray-700 font-medium">Qty: {{ item.quantity }}</span>
-                  <span class="text-indigo-600 font-semibold text-lg">${{ item.subtotal|floatformat:2 }}</span>
+                  <span class="text-indigo-600 font-semibold text-lg">₱{{ item.subtotal|floatformat:2 }}</span>
                 </div>
               </div>
               <form method="POST" action="{% url 'remove_from_cart' item.id %}">
@@ -43,7 +43,7 @@
         <div class="border-t border-gray-200 px-6 py-4 sm:px-8">
           <div class="flex justify-between text-base font-medium text-gray-900">
             <p>Total</p>
-            <p>${{ total_price|floatformat:2 }}</p>
+            <p>₱{{ total_price|floatformat:2 }}</p>
           </div>
           <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
           <div class="mt-4">

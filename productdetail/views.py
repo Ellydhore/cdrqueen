@@ -6,12 +6,20 @@ from productmanagement.models import Product
 @login_required
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    return render(request, 'productdetail.html', {'product': product})
+
+    # Use discounted price if applicable
+    effective_price = product.discount if product.discount else product.price
+
+    return render(request, 'productdetail.html', {'product': product, 'effective_price': effective_price})
+
 
 @login_required
 def add_to_cart(request, product_id):
     if request.method == 'POST':
         product = get_object_or_404(Product, id=product_id)
+
+        # Calculate the effective price
+        effective_price = product.discount if product.discount else product.price
 
         # Get the current user's shopping cart
         cart, created = ShoppingCart.objects.get_or_create(user=request.user)
@@ -24,13 +32,13 @@ def add_to_cart(request, product_id):
             quantity = 1  # Fallback to 1 if conversion fails
 
         # Calculate the subtotal
-        subtotal = product.price * quantity
+        subtotal = effective_price * quantity
 
         # Check if the item is already in the cart
         existing_item = CartItem.objects.filter(cart=cart, product=product).first()
         if existing_item:
             existing_item.quantity += quantity
-            existing_item.subtotal = existing_item.quantity * product.price
+            existing_item.subtotal = existing_item.quantity * effective_price
             existing_item.save()
         else:
             # Create a new CartItem
@@ -42,4 +50,5 @@ def add_to_cart(request, product_id):
             )
 
         # Redirect to the shopping cart or product detail page
-        return redirect('shopping_cart')  
+        return redirect('shopping_cart')
+ 
