@@ -2,7 +2,7 @@
 {% load static %}
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/to_recieve.css' %}">
 {% endblock %}
 {% block title %}To Recieve Page{% endblock %}
 
@@ -15,6 +15,21 @@
     <!-- Individual item container -->
     <div class="item-container">
         <!-- Item content here -->
+        <div class="item-image-container">
+            <img class="item-image" src="">
+        </div>
+        <div>
+            <div>
+                <p class="item-name"></p>
+            </div>
+            <div>
+                <p class="item-quantity"></p> 
+            </div>
+        </div>
+        <div>
+            <p class="item-price"></p> 
+            <span style="text-decoration: line-through;">₱</span><span>₱</span>
+        </div>
     </div>
 
     <!-- Total section container -->
