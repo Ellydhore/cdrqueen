@@ -135,6 +135,7 @@ class Order(models.Model):
     delivery_status = models.CharField(max_length=20, choices=DELIVERY_STATUS_CHOICES, blank=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     refund_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    is_paid = models.BooleanField(default=False)
     date_delivered = models.DateField(null=True, blank=True)
     date_returned = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
