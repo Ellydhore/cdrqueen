@@ -15,4 +15,4 @@ Cebu Institute of Technology University
 
 ---
 
-## LINK(https://docs.google.com/spreadsheets/d/1vEILlGmGEMEgGoqOV_bDOAkh_t9VAHiSpDvNH064eRg/edit?usp=sharing)
+![Gantt Chart](https://github.com/user-attachments/assets/7d19d87f-2302-4f52-9c38-4505aacb7d6f)
