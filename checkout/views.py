@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect
-from usermanagement.models import ShoppingCart, Address, Card
+from usermanagement.models import ShoppingCart, Address, Card, CartItem
+
 
 def get_cart_summary(request):
     """
@@ -79,3 +80,25 @@ def checkout_view(request):
     }
 
     return render(request, 'checkout.html', context)
+
+def payment_view(request):
+    """
+    Combines cart summary, address details, and payment card details to display the checkout page.
+    """
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    # Retrieve cart summary, user addresses, and cards
+    cart_summary = get_cart_summary(request)
+    user_addresses = get_user_addresses(request)
+    user_cards = get_user_cards(request)
+
+    # Combine context data
+    context = {
+        **cart_summary,  # Includes cart_items_data, subtotal, tax, etc.
+        **user_addresses,
+        **user_cards,
+    }
+
+    return render(request, 'payment.html', context)
+

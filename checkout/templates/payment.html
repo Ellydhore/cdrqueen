@@ -1,0 +1,100 @@
+{% extends 'base_nav.html' %}
+{% load static %}
+
+{% block css_block %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
+    <form action="#" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <div class="mx-auto max-w-3xl">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Order summary</h2>
+        <div class="mt-6 sm:mt-8">
+          <!-- Cart Items Table -->
+          <div class="relative overflow-x-auto border-b border-gray-200 dark:border-gray-800">
+            <table class="w-full text-left font-medium text-gray-900 dark:text-white md:table-fixed">
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                {% if cart_items_data %}
+                  {% for item_data in cart_items_data %}
+                  <tr>
+                    <td class="whitespace-nowrap py-4">
+                      <div class="flex items-center gap-4">
+                        <!-- Product Image -->
+                        <a href="#" class="flex items-center aspect-square w-16 h-16 shrink-0">
+                          {% if item_data.item.product.images.all %}
+                            <img 
+                              class="h-full w-full object-contain dark:hidden" 
+                              src="{{ item_data.item.product.images.first.image_url_1 }}" 
+                              alt="{{ item_data.item.product.name }} image"
+                            />
+                          {% else %}
+                            <img 
+                              class="h-full w-full object-contain dark:hidden" 
+                              src="/static/default_product_image.jpg" 
+                              alt="Default product image"
+                            />
+                          {% endif %}
+                        </a>
+                        <a href="#" class="text-base font-medium hover:underline">{{ item_data.item.product.name }}</a>
+                      </div>
+                    </td>
+                    <td class="p-4 text-base font-normal text-gray-900 dark:text-white">x{{ item_data.item.quantity }}</td>
+                    <td class="p-4 text-right text-base font-bold text-gray-900 dark:text-white">₱{{ item_data.item_total|floatformat:2 }}</td>
+                  </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td colspan="3" class="text-center py-4 text-gray-500 dark:text-gray-400">
+                      Your cart is empty.
+                    </td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        
+          <!-- Pricing Summary (Ensure same width as the cart) -->
+          <div class="relative w-full max-w-full mt-6 sm:mt-8">
+            <div class="divide-y divide-gray-200 dark:divide-gray-800">
+              <!-- Subtotal -->
+              <dl class="flex items-center justify-between gap-4 py-3">
+                <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
+                <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ subtotal|floatformat:2 }}</dd>
+              </dl>
+              <!-- Store Pickup -->
+              <dl class="flex items-center justify-between gap-4 py-3">
+                <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
+                <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ store_pickup|floatformat:2 }}</dd>
+              </dl>
+              <!-- Tax -->
+              <dl class="flex items-center justify-between gap-4 py-3">
+                <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
+                <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ tax|floatformat:2 }}</dd>
+              </dl>
+              <!-- Total -->
+              <dl class="flex items-center justify-between gap-4 py-3">
+                <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                <dd class="text-base font-bold text-gray-900 dark:text-white">₱{{ total_price|floatformat:2 }}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        
+    
+            <div class="space-y-3">
+              <a href="{% url 'payment' %}" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+              Confirm Order
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+{% endblock %}
+
+{% block js_block %}
+{% endblock %}
