@@ -17,4 +17,4 @@ This is a group project for CS327 (2024-2025) focused on developing an online sh
   (https://github.com/Ellydhore/cdrqueen/blob/main/GANTT%20CHART.md)
 
 ### UI/UX Design
-  (https://github.com/Ellydhore/cdrqueen/blob/main/GANTT%20CHART.md)
+  (https://github.com/Ellydhore/cdrqueen/blob/main/UI%20-%20UX%20DESIGN.md)
