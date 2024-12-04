@@ -2,31 +2,54 @@
 {% load static %}
 {% block css_block %}
     <link rel="stylesheet" href="{% static 'css/profile_container.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my_purchases.css' %}">
 {% endblock %}
 {% block title %}Cancelled Orders{% endblock %}
 
 {% block page_name %}My Purchases{% endblock %}
 {% block subpage_name %}Cancelled{% endblock %}
 
-
+{% load humanize %}
 {% block profile_contents %}
+{% for order in orders %}
 <div class="purchased-items-container">
-    <!-- Individual item container -->
-    <div class="item-container">
-        <!-- Item content here -->
+    <div class="item-feilds flex">
+        <div class="w-5/6 pl-10">Product</div> 
+        <div class="w-1/6">Price</div> 
     </div>
-
+    <!-- Individual item container -->
+    
+    {% for item in order.order_items.all %}
+        <div class="item-container flex">
+            <div class="item-image-container w-1/6">
+                <img class="item-image" src="{{ item.product.images.first.image_url_1 }}" alt="{{ item.product.name }}">
+            </div>
+            <div class="item-description w-4/6 flex-col">
+                <div>
+                    <p class="item-name">{{ item.product.name }}</p>
+                </div>
+                <div>
+                    <p class="item-quantity">Quantity: {{ item.quantity }}</p> 
+                </div>
+            </div>
+            <div class="item-price w-1/6">
+                <p class="item-price">₱{{ item.subtotal|intcomma }}</p>
+            </div>
+        </div>
+    {% endfor %}
     <!-- Total section container -->
     <div class="total-container flex flex-wrap items-center justify-between">
+        
         <div>
+            {{ order.get_status_display }} <i class="bx bx-help-circle bx-sm icon"></i>
         </div>
-        <div class="flex flex-col">
-            <div>
-            </div>
-            <div>
+
+        <div>
+            <div class="order-total-container">
+                <p>Order Total: </p><p>₱{{ order.total_amount|intcomma }}</p>
             </div>
         </div>
     </div>
 </div>
+{% endfor %}
 {% endblock %}
