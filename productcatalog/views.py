@@ -35,7 +35,7 @@ def foo_product_catalog(request, category_slug=None):
 
     # Get all categories and brands for the dropdown
     categories = Category.objects.all()
-    brands = Brand.objects.all()
+    brands = Brand.objects.all().order_by('name')
 
     context = {
         'products': products,
