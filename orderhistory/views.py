@@ -25,8 +25,8 @@ def return_refund(request):
 
     return render(request, 'return.html')
 
-def to_recieve(request):
+def to_receive(request):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    return render(request, 'to_recieve.html')
+    return render(request, 'to_receive.html')
