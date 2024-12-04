@@ -162,37 +162,52 @@
                   <p class="text-sm text-gray-500 dark:text-gray-400">No default address set. Please add or update your address in your profile.</p>
                   {% endif %}
               </div>
-<!--SUBTOTAL-->
-        <div class="w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
-          <div>
-            <div class="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
-                <dl class="flex items-center justify-between gap-4 py-3">
-                  <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
-                  <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ subtotal|floatformat:2 }}</dd>
-                </dl>
-              <dl class="flex items-center justify-between gap-4 py-3">
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
-                <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ store_pickup|floatformat:2 }}</dd>
-              </dl>
-  
-              <dl class="flex items-center justify-between gap-4 py-3">
-                <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-                <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ tax|floatformat:2 }}</dd>
-              </dl>
-  
-              <dl class="flex items-center justify-between gap-4 py-3">
-                <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                <dd class="text-base font-bold text-gray-900 dark:text-white">₱{{ total_price|floatformat:2 }}</dd>
-              </dl>
-            </div>
-          </div>
-  
-          <div class="space-y-3">
-            <a href="{% url 'payment' %}" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
-            Proceed to Payment
-          </a>
-          </div>
-        </div>
+                    <!-- SUBTOTAL -->
+                    <div class="w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
+                      <div>
+                        <div class="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
+                          <!-- Calculate Subtotal -->
+                          {% with 0 as subtotal %}
+                          {% for cart_item in cart_items_data %}
+                            {% with subtotal|add:cart_item.item_total as subtotal %}
+                            {% endwith %}
+                          {% endfor %}
+                          {% endwith %}
+                          
+                          <!-- Subtotal Display -->
+                          <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ subtotal|floatformat:2 }}</dd>
+                          </dl>
+                    
+                          <!-- Store Pickup Fee -->
+                          <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ store_pickup|floatformat:2 }}</dd>
+                          </dl>
+                    
+                          <!-- Tax -->
+                          <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">₱{{ tax|floatformat:2 }}</dd>
+                          </dl>
+                    
+                          <!-- Total -->
+                          <dl class="flex items-center justify-between gap-4 py-3">
+                            <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                            <dd class="text-base font-bold text-gray-900 dark:text-white">₱{{ total_price|floatformat:2 }}</dd>
+                          </dl>
+                        </div>
+                      </div>
+                      
+                      <!-- Proceed to Payment Button -->
+                      <div>
+                        <a href="{% url 'payment' %}" class="flex w-full items-center justify-center rounded-lg bg-indigo-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-indigo-800 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">
+                          Proceed to Payment
+                        </a>
+                      </div>
+                    </div>
+                    
           <!-- Payment Details -->
 <div class="space-y-6 sm:col-span-2 lg:col-span-2">
   <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Payment Details</h2>

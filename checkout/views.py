@@ -5,7 +5,8 @@ from usermanagement.models import ShoppingCart, Address, Card, CartItem
 
 def get_cart_summary(request):
     """
-    Retrieves the shopping cart details and computes totals for the logged-in user.
+    Retrieves the shopping cart details and computes totals for the logged-in user,
+    using discounted prices if applicable.
     """
     try:
         cart = ShoppingCart.objects.get(user=request.user)
@@ -13,17 +14,23 @@ def get_cart_summary(request):
 
         cart_items_data = []
         for item in cart_items:
-            item_total = Decimal(item.product.price) * Decimal(item.quantity)
+            # Use discounted price if applicable
+            effective_price = item.product.discount if item.product.discount else item.product.price
+            item_total = Decimal(effective_price) * Decimal(item.quantity)
+            
             cart_items_data.append({
                 'item': item,
+                'effective_price': effective_price,
                 'item_total': item_total,
             })
 
+        # Calculate totals
         subtotal = sum(data['item_total'] for data in cart_items_data)
         store_pickup = Decimal("99.00")
         tax = subtotal * Decimal("0.025")
         total_price = subtotal + store_pickup + tax
     except ShoppingCart.DoesNotExist:
+        # Defaults if the cart does not exist
         cart_items_data = []
         subtotal = store_pickup = tax = total_price = Decimal("0.00")
 
@@ -34,6 +41,9 @@ def get_cart_summary(request):
         'tax': tax,
         'total_price': total_price,
     }
+
+
+
 
 def get_user_addresses(request):
     """

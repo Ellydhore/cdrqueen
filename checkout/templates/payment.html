@@ -41,7 +41,7 @@
                         <a href="#" class="text-base font-medium hover:underline">{{ item_data.item.product.name }}</a>
                       </div>
                     </td>
-                    <td class="p-4 text-base font-normal text-gray-900 dark:text-white">x{{ item_data.item.quantity }}</td>
+                    <td class="p-4 text-base font-normal text-gray-900 dark:text-white">{{ item_data.item.quantity }}</td>
                     <td class="p-4 text-right text-base font-bold text-gray-900 dark:text-white">₱{{ item_data.item_total|floatformat:2 }}</td>
                   </tr>
                   {% endfor %}
