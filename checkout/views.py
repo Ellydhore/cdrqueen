@@ -1,6 +1,6 @@
 from decimal import Decimal
 from django.shortcuts import render, redirect
-from usermanagement.models import ShoppingCart, Address, Card, CartItem
+from usermanagement.models import ShoppingCart, Address, Card, CartItem, Order
 
 
 def get_cart_summary(request):
@@ -111,4 +111,44 @@ def payment_view(request):
     }
 
     return render(request, 'payment.html', context)
+
+def confirm_order_view(request):
+    """
+    Transfers cart items to an Order and clears the cart.
+    """
+    try:
+        # Get the user's shopping cart
+        cart = ShoppingCart.objects.get(user=request.user)
+        cart_items = cart.items.all()
+        
+        if not cart_items.exists():
+            # If no items in the cart, redirect to the cart page
+            return redirect('shopping_cart')  # Replace 'cart' with the name of your cart URL
+        
+        # Calculate total amount
+        total_amount = sum(
+            Decimal(item.product.discount if item.product.discount else item.product.price) * Decimal(item.quantity)
+            for item in cart_items
+        )
+        
+        # Create an Order
+        order = Order.objects.create(
+            user=request.user,
+            status='to_receive',
+            delivery_status='pending',
+            total_amount=total_amount,
+            is_paid=False,  # Update this if payment integration is included
+        )
+        
+        # Optional: Associate cart items with the order if using a separate order item model
+        
+        # Clear the cart
+        cart.items.all().delete()
+        
+        # Redirect to the "to_receive" page
+        return redirect('to_receive')  # Replace 'to_receive' with the appropriate URL name
+    
+    except ShoppingCart.DoesNotExist:
+        # Redirect to cart page if the cart doesn't exist
+        return redirect('shopping_cart')  # Replace 'cart' with the cart URL name
 
